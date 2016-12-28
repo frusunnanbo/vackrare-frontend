@@ -1,6 +1,7 @@
 module Main exposing (..)
 
 import Html
+import Html.Events
 
 
 main =
@@ -16,7 +17,7 @@ type alias Model =
 
 
 type Msg
-    = SetSlideNumber Int
+    = SetSlideNumber String
 
 
 
@@ -26,7 +27,8 @@ type Msg
 update msg model =
     case msg of
         SetSlideNumber number ->
-            number
+            String.toInt number
+                |> Result.withDefault 0
 
 
 
@@ -34,4 +36,9 @@ update msg model =
 
 
 view model =
-    Html.text ("Vackrare frontend med Elm. Slide number: " ++ toString model)
+    Html.div []
+        [ Html.text ("Vackrare frontend med Elm. Slide number: " ++ toString model)
+        , Html.input
+            [ Html.Events.onInput SetSlideNumber ]
+            []
+        ]
