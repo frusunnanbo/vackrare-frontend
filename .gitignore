@@ -2,3 +2,6 @@
 elm-stuff/
 # elm-repl generated files
 repl-temp-*
+
+# Let's assume all .js files are generated for now
+*.js
