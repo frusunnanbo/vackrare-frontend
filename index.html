@@ -7764,8 +7764,23 @@ var _elm_lang$html$Html$details = _elm_lang$html$Html$node('details');
 var _elm_lang$html$Html$summary = _elm_lang$html$Html$node('summary');
 var _elm_lang$html$Html$menuitem = _elm_lang$html$Html$node('menuitem');
 var _elm_lang$html$Html$menu = _elm_lang$html$Html$node('menu');
-var _frusunnanbo$vackrare_frontend$Main$main = _elm_lang$virtual_dom$Native_VirtualDom.staticProgram(
-	_elm_lang$html$Html$text('Vackrare frontend med Elm.'));
+var _frusunnanbo$vackrare_frontend$Main$view = function (model) {
+	return _elm_lang$html$Html$text(
+		A2(
+			_elm_lang$core$Basics_ops['++'],
+			'Vackrare frontend med Elm. Slide number: ',
+			_elm_lang$core$Basics$toString(model)));
+};
+var _frusunnanbo$vackrare_frontend$Main$update = F2(
+	function (msg, model) {
+		var _p0 = msg;
+		return _p0._0;
+	});
+var _frusunnanbo$vackrare_frontend$Main$main = _elm_lang$html$Html$beginnerProgram(
+	{model: 1, view: _frusunnanbo$vackrare_frontend$Main$view, update: _frusunnanbo$vackrare_frontend$Main$update})();
+var _frusunnanbo$vackrare_frontend$Main$SetSlideNumber = function (a) {
+	return {ctor: 'SetSlideNumber', _0: a};
+};
 var Elm = {};
 Elm['Main'] = Elm['Main'] || {};
 if (typeof _frusunnanbo$vackrare_frontend$Main$main !== 'undefined') {
