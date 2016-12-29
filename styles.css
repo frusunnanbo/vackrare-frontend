@@ -1,3 +1,11 @@
-body {
-    background-color: #CCFFFF;
+.mainDark {
+    background-color: #333333;
+}
+
+.mainLight {
+    background-color: #EEEEEE;
+}
+
+#main {
+    padding: 10px;
 }
