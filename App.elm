@@ -52,11 +52,29 @@ update msg model =
     Html.CssHelpers.withNamespace "main"
 view model =
     Html.div [ Html.Attributes.style (Css.asPairs (myCss model.baseColor)) ]
-        [ h1 [] [ Html.text ("Vackrare frontend med Elm. Current slide: " ++ toString model.currentSlide) ]
-        , input
+        [ h1 [] [ Html.text "Vackrare frontend med Elm" ]
+        , slide
+        , theme
+        , navigation model
+        ]
+
+
+slide =
+    div [ id Styles.Slide ] [ Html.text "This is where the current slide goes." ]
+
+
+theme =
+    div [ id Styles.Theme ]
+        [ input
             [ Html.Events.onInput SetBaseColor ]
             []
-        , button [ Html.Events.onClick Back ] [ Html.text "<" ]
+        ]
+
+
+navigation model =
+    div [ id Styles.Navigation ]
+        [ button [ Html.Events.onClick Back ] [ Html.text "<" ]
+        , Html.text (toString model.currentSlide)
         , button [ Html.Events.onClick Forward ] [ Html.text ">" ]
         ]
 
