@@ -46,19 +46,26 @@ slide =
 
 theme =
     (#) Theme
-        [ box foregroundColor
+        [ topBox foregroundColor
         , position absolute
-        , left (px 10)
-        , bottom (px 10)
+        , left (px 20)
+        , bottom (px 20)
         ]
 
 
 navigation =
     (#) Navigation
-        [ box foregroundColor
+        [ topBox foregroundColor
         , position absolute
-        , right (px 10)
-        , bottom (px 10)
+        , right (px 20)
+        , bottom (px 20)
+        ]
+
+
+topBox color =
+    mixin
+        [ box color
+        , boxShadow4 (px 2) (px 2) (px 2) (rgb 200 200 200)
         ]
 
 
