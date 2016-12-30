@@ -52,8 +52,7 @@ update msg model =
     Html.CssHelpers.withNamespace "main"
 view model =
     Html.div [ Html.Attributes.style (Css.asPairs (myCss model.baseColor)) ]
-        [ h1 [] [ Html.text "Vackrare frontend med Elm" ]
-        , slide
+        [ slide
         , theme
         , navigation model
         ]
