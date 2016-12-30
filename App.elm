@@ -8,6 +8,7 @@ import Css exposing (..)
 import Css.Elements exposing (body)
 import Css.Namespace exposing (namespace)
 import Styles
+import Slides
 
 
 main =
@@ -52,13 +53,13 @@ update msg model =
     Html.CssHelpers.withNamespace "main"
 view model =
     Html.div [ Html.Attributes.style (Css.asPairs (myCss model.baseColor)) ]
-        [ slide
+        [ slide model
         , navigation model
         ]
 
 
-slide =
-    div [ id Styles.Slide ] [ Html.text "This is where the current slide goes." ]
+slide model =
+    div [ id Styles.Slide ] [ Slides.slide model.currentSlide ]
 
 
 theme =
