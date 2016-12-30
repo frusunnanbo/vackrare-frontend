@@ -1,6 +1,6 @@
 module Main exposing (..)
 
-import Html exposing (h1, div, input, button)
+import Html exposing (h1, div, input, button, span)
 import Html.Attributes
 import Html.Events
 import Html.CssHelpers
@@ -53,7 +53,6 @@ update msg model =
 view model =
     Html.div [ Html.Attributes.style (Css.asPairs (myCss model.baseColor)) ]
         [ slide
-        , theme
         , navigation model
         ]
 
@@ -73,7 +72,7 @@ theme =
 navigation model =
     div [ id Styles.Navigation ]
         [ button [ Html.Events.onClick Back ] [ Html.text "<" ]
-        , Html.text (toString model.currentSlide)
+        , span [ id Styles.CurrentSlide ] [ Html.text (toString model.currentSlide) ]
         , button [ Html.Events.onClick Forward ] [ Html.text ">" ]
         ]
 

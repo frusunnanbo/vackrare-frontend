@@ -1,7 +1,7 @@
 module Styles exposing (..)
 
 import Css exposing (..)
-import Css.Elements exposing (body)
+import Css.Elements exposing (body, button)
 import Css.Namespace exposing (namespace)
 
 
@@ -10,14 +10,23 @@ type CssIds
     | Navigation
     | Theme
     | Slide
+    | CurrentSlide
 
 
 baseColor =
     (rgb 80 165 192)
 
 
-foregroundColor =
+accentColor =
     (rgb 124 209 42)
+
+
+accentColor2 =
+    (rgb 232 148 9)
+
+
+foregroundColor =
+    (rgb 71 78 79)
 
 
 slideHeight =
@@ -29,10 +38,13 @@ css =
         [ body
             [ margin (px 0)
             , fontFamilies [ "Helvetica", "Arial", "Sans" ]
+            , color foregroundColor
             ]
         , slide
         , theme
         , navigation
+        , navigationButton
+        , currentSlide
         ]
 
 
@@ -46,7 +58,7 @@ slide =
 
 theme =
     (#) Theme
-        [ topBox foregroundColor
+        [ topBox accentColor
         , position absolute
         , left (px 20)
         , bottom (px 20)
@@ -55,10 +67,30 @@ theme =
 
 navigation =
     (#) Navigation
-        [ topBox foregroundColor
+        [ topBox accentColor
         , position absolute
         , right (px 20)
         , bottom (px 20)
+        ]
+
+
+currentSlide =
+    (#) CurrentSlide
+        [ display inlineBlock
+        , padding (px 5)
+        , fontSize (px 24)
+        ]
+
+
+navigationButton =
+    button
+        [ padding (px 3)
+        , fontSize (px 20)
+        , color foregroundColor
+        , border3 (px 1) solid (darker accentColor 0.2)
+        , backgroundColor accentColor
+        , padding (px 10)
+        , borderRadius (px 6)
         ]
 
 
@@ -77,9 +109,29 @@ box color =
         ]
 
 
+lightenColor color howMuch =
+    let
+        adjust =
+            percentage (1.0 + howMuch)
+    in
+        rgb (adjust color.red) (adjust color.green) (adjust color.blue)
+
+
+darker color howMuch =
+    let
+        adjust =
+            percentage (1.0 - howMuch)
+    in
+        rgb (adjust color.red) (adjust color.green) (adjust color.blue)
+
+
 tenPercentDarker color =
     rgb (tenPercentOff color.red) (tenPercentOff color.green) (tenPercentOff color.blue)
 
 
 tenPercentOff value =
-    Basics.round (toFloat value * 0.9)
+    percentage 0.9 value
+
+
+percentage percentage value =
+    Basics.round (toFloat value * percentage)
