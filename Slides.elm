@@ -1,15 +1,41 @@
 module Slides exposing (slide)
 
 import Html
+import InTheBeginningOfTime
+import InTheMeanTime
+import TheseDays
+import WhatsAWebapp
+import ElmOneOOne
+import PageNavigation
+import PresentationTimer
+import FetchingPages
 
 
 slide number =
     case number of
         1 ->
-            Html.text "This is the first slide"
+            InTheBeginningOfTime.render
 
         2 ->
-            Html.text "This is the second slide"
+            InTheMeanTime.render
+
+        3 ->
+            TheseDays.render
+
+        4 ->
+            WhatsAWebapp.render
+
+        5 ->
+            ElmOneOOne.render
+
+        6 ->
+            PageNavigation.render
+
+        7 ->
+            PresentationTimer.render
+
+        8 ->
+            FetchingPages.render
 
         _ ->
             Html.text "This slide is not supported"
