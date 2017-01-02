@@ -72,9 +72,17 @@ theme =
 
 navigation model =
     div [ id Styles.Navigation ]
-        [ button [ Html.Events.onClick Back ] [ Html.text "<" ]
+        [ button
+            [ Html.Events.onClick Back
+            , Html.Attributes.disabled (model.currentSlide <= Slides.min)
+            ]
+            [ Html.text "<" ]
         , span [ id Styles.CurrentSlide ] [ Html.text (toString model.currentSlide) ]
-        , button [ Html.Events.onClick Forward ] [ Html.text ">" ]
+        , button
+            [ Html.Events.onClick Forward
+            , Html.Attributes.disabled (model.currentSlide >= Slides.max)
+            ]
+            [ Html.text ">" ]
         ]
 
 

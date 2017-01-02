@@ -1,4 +1,4 @@
-module Slides exposing (slide)
+module Slides exposing (slide, max, min)
 
 import Html
 import InTheBeginningOfTime
@@ -9,6 +9,14 @@ import ElmOneOOne
 import PageNavigation
 import PresentationTimer
 import FetchingPages
+
+
+min =
+    1
+
+
+max =
+    8
 
 
 slide number =
