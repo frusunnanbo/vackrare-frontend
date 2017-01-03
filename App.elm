@@ -20,12 +20,11 @@ main =
 
 
 type alias Model =
-    { currentSlide : Int, baseColor : Color }
+    { currentSlide : Int }
 
 
 type Msg
-    = SetBaseColor String
-    | Forward
+    = Forward
     | Back
 
 
@@ -41,9 +40,6 @@ update msg model =
         Back ->
             { model | currentSlide = (model.currentSlide - 1) }
 
-        SetBaseColor color ->
-            { model | baseColor = (hex color) }
-
 
 
 -- VIEW
@@ -52,7 +48,7 @@ update msg model =
 { id, class, classList } =
     Html.CssHelpers.withNamespace "main"
 view model =
-    Html.div [ Html.Attributes.style (Css.asPairs (myCss model.baseColor)) ]
+    Html.div []
         [ slide model
         , navigation model
         ]
@@ -60,14 +56,6 @@ view model =
 
 slide model =
     div [ id Styles.Slide ] [ Slides.slide model.currentSlide ]
-
-
-theme =
-    div [ id Styles.Theme ]
-        [ input
-            [ Html.Events.onInput SetBaseColor ]
-            []
-        ]
 
 
 navigation model =
@@ -84,8 +72,3 @@ navigation model =
             ]
             [ Html.text ">" ]
         ]
-
-
-myCss baseColor =
-    [ backgroundColor baseColor
-    ]
