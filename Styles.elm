@@ -8,9 +8,14 @@ import Css.Namespace exposing (namespace)
 type CssIds
     = Main
     | Navigation
+    | Elapsed
     | Theme
     | Slide
     | CurrentSlide
+
+
+type CssClasses
+    = DisplayNumber
 
 
 baseColor =
@@ -42,9 +47,10 @@ css =
             ]
         , slide
         , theme
+        , elapsed
         , navigation
         , navigationButton
-        , currentSlide
+        , displayNumber
         ]
 
 
@@ -65,6 +71,15 @@ theme =
         ]
 
 
+elapsed =
+    (#) Elapsed
+        [ topBox accentColor
+        , position absolute
+        , left (px 20)
+        , bottom (px 20)
+        ]
+
+
 navigation =
     (#) Navigation
         [ topBox accentColor
@@ -74,8 +89,8 @@ navigation =
         ]
 
 
-currentSlide =
-    (#) CurrentSlide
+displayNumber =
+    (.) DisplayNumber
         [ display inlineBlock
         , padding (px 5)
         , fontSize (px 24)
