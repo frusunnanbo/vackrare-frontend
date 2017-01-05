@@ -1,14 +1,6 @@
 module Slides exposing (Slides, init, next, previous, currentSlide)
 
 import Html
-import InTheBeginningOfTime
-import InTheMeanTime
-import TheseDays
-import WhatsAWebapp
-import ElmOneOOne
-import PageNavigation
-import PresentationTimer
-import FetchingPages
 
 
 type alias Slides =
