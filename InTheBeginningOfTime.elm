@@ -4,4 +4,4 @@ import Html
 
 
 render =
-    Html.text "In the Beginning of Time..."
+    Html.h1 [] [ Html.text "In the Beginning of Time..." ]
