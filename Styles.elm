@@ -42,7 +42,7 @@ css =
     stylesheet
         [ body
             [ margin (px 0)
-            , fontFamilies [ "Helvetica", "Arial", "Sans" ]
+            , fontFamilies [ "Courier New", "Mono" ]
             , color foregroundColor
             ]
         , slide
