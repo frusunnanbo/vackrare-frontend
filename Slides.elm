@@ -19,44 +19,6 @@ type alias Slide =
     { heading : String }
 
 
-min =
-    1
-
-
-max =
-    8
-
-
-slide number =
-    case number of
-        1 ->
-            InTheBeginningOfTime.render
-
-        2 ->
-            InTheMeanTime.render
-
-        3 ->
-            TheseDays.render
-
-        4 ->
-            WhatsAWebapp.render
-
-        5 ->
-            ElmOneOOne.render
-
-        6 ->
-            PageNavigation.render
-
-        7 ->
-            PresentationTimer.render
-
-        8 ->
-            FetchingPages.render
-
-        _ ->
-            Html.text "This slide is not supported"
-
-
 init : Slides
 init =
     { previous = []
@@ -64,6 +26,11 @@ init =
     , next =
         [ createSlide "In the Mean Time"
         , createSlide "These Days"
+        , createSlide "Whats a webapp, anyway?"
+        , createSlide "Elm 101"
+        , createSlide "Navigating a set of slides"
+        , createSlide "Keeping track of time"
+        , createSlide "Fetching Stuff from a server"
         ]
     }
 
