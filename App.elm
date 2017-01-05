@@ -27,7 +27,7 @@ main =
 
 
 type alias Model =
-    { currentSlide : Int
+    { slides : Slides.Slides
     , elapsedTime : Int
     }
 
@@ -40,7 +40,7 @@ type Msg
 
 
 init =
-    ( { currentSlide = 1, elapsedTime = 0 }, Cmd.none )
+    ( { slides = Slides.init, elapsedTime = 0 }, Cmd.none )
 
 
 
@@ -50,10 +50,10 @@ init =
 update msg model =
     case msg of
         Forward ->
-            ( { model | currentSlide = (model.currentSlide + 1) }, Cmd.none )
+            ( { model | slides = Slides.next model.slides }, Cmd.none )
 
         Back ->
-            ( { model | currentSlide = (model.currentSlide - 1) }, Cmd.none )
+            ( { model | slides = Slides.previous model.slides }, Cmd.none )
 
         Tick time ->
             ( { model | elapsedTime = (model.elapsedTime + 1) }, Cmd.none )
@@ -107,7 +107,7 @@ view model =
 
 
 slide model =
-    div [ id Styles.Slide ] [ Slides.slide model.currentSlide ]
+    div [ id Styles.Slide ] [ Html.h1 [] [ Html.text model.slides.current.heading ] ]
 
 
 elapsed model =
@@ -119,14 +119,10 @@ elapsed model =
 navigation model =
     div [ id Styles.Navigation ]
         [ button
-            [ Html.Events.onClick Back
-            , Html.Attributes.disabled (model.currentSlide <= Slides.min)
-            ]
+            [ Html.Events.onClick Back ]
             [ Html.text "<" ]
-        , span [ class [ Styles.DisplayNumber ] ] [ Html.text (toString model.currentSlide) ]
+        , span [ class [ Styles.DisplayNumber ] ] [ Html.text (toString (Slides.currentSlide model.slides)) ]
         , button
-            [ Html.Events.onClick Forward
-            , Html.Attributes.disabled (model.currentSlide >= Slides.max)
-            ]
+            [ Html.Events.onClick Forward ]
             [ Html.text ">" ]
         ]
