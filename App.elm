@@ -10,6 +10,7 @@ import Css.Elements exposing (body)
 import Css.Namespace exposing (namespace)
 import Styles
 import Slides
+import Keyboard
 
 
 main =
@@ -35,6 +36,7 @@ type Msg
     = Forward
     | Back
     | Tick Time.Time
+    | Noop
 
 
 init =
@@ -56,13 +58,38 @@ update msg model =
         Tick time ->
             ( { model | elapsedTime = (model.elapsedTime + 1) }, Cmd.none )
 
+        Noop ->
+            ( model, Cmd.none )
+
 
 
 -- subscriptions
 
 
 subscriptions model =
-    every second Tick
+    Sub.batch
+        [ every second Tick
+        , Keyboard.downs handleKeyPress
+        ]
+
+
+handleKeyPress : Keyboard.KeyCode -> Msg
+handleKeyPress keyCode =
+    case keyCode of
+        13 ->
+            Forward
+
+        32 ->
+            Forward
+
+        39 ->
+            Forward
+
+        37 ->
+            Back
+
+        _ ->
+            Noop
 
 
 
@@ -85,7 +112,8 @@ slide model =
 
 elapsed model =
     div [ id Styles.Elapsed ]
-        [ span [ class [ Styles.DisplayNumber ] ] [ Html.text (toString model.elapsedTime) ] ]
+        [ span [ class [ Styles.DisplayNumber ] ] [ Html.text (toString model.elapsedTime) ]
+        ]
 
 
 navigation model =
