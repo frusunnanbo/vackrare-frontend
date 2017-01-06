@@ -1,38 +1,22 @@
 module Slides exposing (Slides, init, next, previous, currentSlide)
 
 import Html
+import Slide
 
 
-type alias Slides =
-    { previous : List Slide, current : Slide, next : List Slide }
+type alias Slides slide =
+    { previous : List slide, current : slide, next : List slide }
 
 
-type alias Slide =
-    { heading : String }
-
-
-init : Slides
-init =
+init : slide -> List slide -> Slides slide
+init firstSlide slides =
     { previous = []
-    , current = createSlide "In the Begining of Time"
-    , next =
-        [ createSlide "In the Mean Time"
-        , createSlide "These Days"
-        , createSlide "Whats a webapp, anyway?"
-        , createSlide "Elm 101"
-        , createSlide "Navigating a set of slides"
-        , createSlide "Keeping track of time"
-        , createSlide "Fetching Stuff from a server"
-        ]
+    , current = firstSlide
+    , next = slides
     }
 
 
-createSlide : String -> Slide
-createSlide heading =
-    { heading = heading }
-
-
-next : Slides -> Slides
+next : Slides slide -> Slides slide
 next slides =
     if List.isEmpty slides.next then
         slides
@@ -43,7 +27,7 @@ next slides =
         }
 
 
-previous : Slides -> Slides
+previous : Slides slide -> Slides slide
 previous slides =
     if List.isEmpty slides.previous then
         slides
@@ -54,6 +38,6 @@ previous slides =
         }
 
 
-currentSlide : Slides -> Int
+currentSlide : Slides slide -> Int
 currentSlide slides =
     List.length slides.previous + 1

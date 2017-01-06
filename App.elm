@@ -10,6 +10,7 @@ import Css.Elements exposing (body)
 import Css.Namespace exposing (namespace)
 import Styles
 import Slides
+import Slide exposing (createSlide)
 import Keyboard
 
 
@@ -27,7 +28,7 @@ main =
 
 
 type alias Model =
-    { slides : Slides.Slides
+    { slides : Slides.Slides (Slide.Slide Msg)
     , elapsedTime : Int
     }
 
@@ -39,8 +40,20 @@ type Msg
     | Noop
 
 
+slides =
+    [ createSlide "In the Begining of Time"
+    , createSlide "In the Mean Time"
+    , createSlide "These Days"
+    , createSlide "Whats a webapp, anyway?"
+    , createSlide "Elm 101"
+    , createSlide "Navigating a set of slides"
+    , createSlide "Keeping track of time"
+    , createSlide "Fetching Stuff from a server"
+    ]
+
+
 init =
-    ( { slides = Slides.init, elapsedTime = 0 }, Cmd.none )
+    ( { slides = Slides.init (createSlide "Vackrare frontend med Elm") slides, elapsedTime = 0 }, Cmd.none )
 
 
 
