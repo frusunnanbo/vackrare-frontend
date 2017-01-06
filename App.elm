@@ -120,7 +120,7 @@ view model =
 
 
 slide model =
-    div [ id Styles.Slide ] [ Html.h1 [] [ Html.text model.slides.current.heading ] ]
+    div [ id Styles.Slide ] [ model.slides.current.render ]
 
 
 elapsed model =
