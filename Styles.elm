@@ -16,6 +16,13 @@ type CssIds
 
 type CssClasses
     = DisplayNumber
+    | Title
+    | AboutMe
+    | Logo
+
+
+white =
+    (rgb 255 255 255)
 
 
 baseColor =
@@ -50,6 +57,9 @@ css =
         , elapsed
         , navigation
         , navigationButton
+        , title
+        , aboutMe
+        , logo
         , displayNumber
         ]
 
@@ -89,6 +99,33 @@ navigation =
         ]
 
 
+title =
+    (.) Title
+        [ fontSize (px 72)
+        , fontWeight bold
+        , marginTop (px 150)
+        , marginLeft (px 100)
+        ]
+
+
+aboutMe =
+    (.) AboutMe
+        [ bottomOfSlide
+        , fontSize (px 20)
+        , fontWeight bold
+        , lineHeight (px 4)
+        ]
+
+
+logo =
+    (.) Logo
+        [ bottomOfSlide
+        , right (px 50)
+        , backgroundColor white
+        , padding (px 20)
+        ]
+
+
 displayNumber =
     (.) DisplayNumber
         [ display inlineBlock
@@ -121,6 +158,13 @@ box color =
         [ border3 (px 3) solid (tenPercentDarker color)
         , backgroundColor color
         , padding (px 20)
+        ]
+
+
+bottomOfSlide =
+    mixin
+        [ position absolute
+        , top (px (slideHeight - 50))
         ]
 
 

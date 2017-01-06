@@ -10,7 +10,7 @@ import Css.Elements exposing (body)
 import Css.Namespace exposing (namespace)
 import Styles
 import Slides
-import Slide exposing (createSlide)
+import Slide exposing (createSlide, titleSlide)
 import Keyboard
 
 
@@ -53,7 +53,7 @@ slides =
 
 
 init =
-    ( { slides = Slides.init (createSlide "Vackrare frontend med Elm") slides, elapsedTime = 0 }, Cmd.none )
+    ( { slides = Slides.init titleSlide slides, elapsedTime = 0 }, Cmd.none )
 
 
 
