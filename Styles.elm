@@ -54,7 +54,7 @@ foregroundColor =
 
 
 slideHeight =
-    500
+    600
 
 
 css =
@@ -123,12 +123,15 @@ title =
     (.) Title
         [ fontSize (px 72)
         , fontWeight bold
-        , marginTop (px 100)
-        , marginLeft (pct 1)
+        , marginTop (px 150)
+        , textAlign center
         , descendants
-            [ everything [ verticalAlign middle ]
-            , div [ display inlineBlock, maxWidth (pct 70) ]
-            , img [ margin (px 30) ]
+            [ everything
+                [ verticalAlign middle
+                , textAlign left
+                ]
+            , div [ display inlineBlock, maxWidth (pct 75) ]
+            , img [ marginRight (px 30) ]
             ]
         ]
 
