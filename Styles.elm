@@ -1,7 +1,7 @@
 module Styles exposing (..)
 
 import Css exposing (..)
-import Css.Elements exposing (body, button, img)
+import Css.Elements exposing (body, button, img, div)
 import Css.Namespace exposing (namespace)
 
 
@@ -70,7 +70,6 @@ css =
         , navigation
         , navigationButton
         , title
-        , aboutMe
         , logo
         , displayNumber
         ]
@@ -79,8 +78,17 @@ css =
 slide =
     (#) Slide
         [ box baseColor
+        , paddingLeft (px 30)
         , margin (px 10)
         , height (px slideHeight)
+        , descendants
+            [ (.) AboutMe
+                [ bottomOfSlide
+                , fontSize (px 20)
+                , fontWeight bold
+                , lineHeight (px 4)
+                ]
+            ]
         ]
 
 
@@ -115,17 +123,13 @@ title =
     (.) Title
         [ fontSize (px 72)
         , fontWeight bold
-        , marginTop (px 150)
-        , marginLeft (px 100)
-        ]
-
-
-aboutMe =
-    (.) AboutMe
-        [ bottomOfSlide
-        , fontSize (px 20)
-        , fontWeight bold
-        , lineHeight (px 4)
+        , marginTop (px 100)
+        , marginLeft (pct 1)
+        , descendants
+            [ everything [ verticalAlign middle ]
+            , div [ display inlineBlock, maxWidth (pct 70) ]
+            , img [ margin (px 30) ]
+            ]
         ]
 
 

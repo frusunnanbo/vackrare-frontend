@@ -34,7 +34,10 @@ renderHeadingSlide heading =
 renderTitleSlide : Html msg
 renderTitleSlide =
     div []
-        [ div [ class [ Styles.Title ] ] [ text "Vackrare frontend med Elm" ]
+        [ div [ class [ Styles.Title ] ]
+            [ img [ src "elm-logo.png" ] []
+            , div [] [ text "Vackrare frontend med Elm" ]
+            ]
         , div
             [ class [ Styles.AboutMe ] ]
             [ p [] [ text "Pia Fåk Sunnanbo" ]
