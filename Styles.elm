@@ -19,6 +19,8 @@ type CssClasses
     | Title
     | AboutMe
     | Logo
+    | MainPicture
+    | SlideHeading
 
 
 white =
@@ -88,6 +90,16 @@ slide =
                 , fontWeight bold
                 , lineHeight (px 4)
                 ]
+            , (.) MainPicture
+                [ textAlign center
+                , descendants
+                    [ img
+                        [ maxHeight (px (slideHeight - 100))
+                        ]
+                    ]
+                ]
+            , (.) SlideHeading
+                [ textAlign left ]
             ]
         ]
 

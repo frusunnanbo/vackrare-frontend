@@ -28,7 +28,16 @@ createSlide heading =
     CssHelpers.withNamespace ""
 renderHeadingSlide : String -> Html msg
 renderHeadingSlide heading =
-    h1 [] [ text heading ]
+    div []
+        [ h1 []
+            [ text heading ]
+        , div [ class [ Styles.MainPicture ] ]
+            [ img
+                [ src "your-dream-appearance.png"
+                ]
+                []
+            ]
+        ]
 
 
 renderTitleSlide : Html msg

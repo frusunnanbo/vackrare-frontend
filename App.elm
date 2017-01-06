@@ -41,10 +41,10 @@ type Msg
 
 
 slides =
-    [ createSlide "In the Begining of Time"
-    , createSlide "In the Mean Time"
-    , createSlide "These Days"
-    , createSlide "Whats a webapp, anyway?"
+    [ createSlide "För hundra år sedan"
+    , createSlide "Under mellantiden"
+    , createSlide "Nuförtiden"
+    , createSlide "The Elm Architecture"
     , createSlide "Elm 101"
     , createSlide "Navigating a set of slides"
     , createSlide "Keeping track of time"
