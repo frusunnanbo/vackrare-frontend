@@ -1,7 +1,7 @@
 module Styles exposing (..)
 
 import Css exposing (..)
-import Css.Elements exposing (body, button)
+import Css.Elements exposing (body, button, img)
 import Css.Namespace exposing (namespace)
 
 
@@ -25,20 +25,32 @@ white =
     (rgb 255 255 255)
 
 
-baseColor =
+elmLightBlue =
     (rgb 80 165 192)
 
 
-accentColor =
+elmDarkBlue =
+    (rgb 71 78 79)
+
+
+elmGreen =
     (rgb 124 209 42)
 
 
-accentColor2 =
+elmOrange =
     (rgb 232 148 9)
 
 
+baseColor =
+    elmDarkBlue
+
+
+accentColor =
+    elmGreen
+
+
 foregroundColor =
-    (rgb 71 78 79)
+    white
 
 
 slideHeight =
@@ -121,8 +133,9 @@ logo =
     (.) Logo
         [ bottomOfSlide
         , right (px 50)
-        , backgroundColor white
         , padding (px 20)
+        , children
+            [ img [ height (px 50) ] ]
         ]
 
 

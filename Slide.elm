@@ -41,5 +41,5 @@ renderTitleSlide =
             , p [] [ text "pia.fak.sunnanbo@omegapoint.se" ]
             , p [] [ text "@frusunnanbo" ]
             ]
-        , div [ class [ Styles.Logo ] ] [ img [ src "logo.png" ] [] ]
+        , div [ class [ Styles.Logo ] ] [ img [ src "logo_white.png" ] [] ]
         ]
