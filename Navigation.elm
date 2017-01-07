@@ -30,6 +30,16 @@ type Msg
     | Back
 
 
+update : Msg -> Slides slide -> Slides slide
+update msg model =
+    case msg of
+        Forward ->
+            next model
+
+        Back ->
+            previous model
+
+
 next : Slides slide -> Slides slide
 next slides =
     if List.isEmpty slides.next then

@@ -66,7 +66,7 @@ init =
 update msg model =
     case msg of
         NavigationMsg msg ->
-            ( { model | slides = Navigation.next model.slides }, Cmd.none )
+            ( { model | slides = Navigation.update msg model.slides }, Cmd.none )
 
         Tick time ->
             ( { model | elapsedTime = (model.elapsedTime + 1) }, Cmd.none )
