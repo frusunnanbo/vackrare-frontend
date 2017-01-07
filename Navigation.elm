@@ -3,6 +3,7 @@ module Navigation exposing (..)
 import Html exposing (..)
 import Html.Events exposing (onClick)
 import Html.CssHelpers as CssHelpers
+import Keyboard
 import Styles
 
 
@@ -28,6 +29,7 @@ init firstSlide slides =
 type Msg
     = Forward
     | Back
+    | Noop
 
 
 update : Msg -> Slides slide -> Slides slide
@@ -38,6 +40,9 @@ update msg model =
 
         Back ->
             previous model
+
+        Noop ->
+            model
 
 
 next : Slides slide -> Slides slide
@@ -65,6 +70,33 @@ previous slides =
 currentSlide : Slides slide -> Int
 currentSlide slides =
     List.length slides.previous + 1
+
+
+
+-- SUBSCRIPTIONS
+
+
+subscriptions =
+    Keyboard.downs handleKeyPress
+
+
+handleKeyPress : Keyboard.KeyCode -> Msg
+handleKeyPress keyCode =
+    case keyCode of
+        13 ->
+            Forward
+
+        32 ->
+            Forward
+
+        39 ->
+            Forward
+
+        37 ->
+            Back
+
+        _ ->
+            Noop
 
 
 

@@ -85,27 +85,8 @@ update msg model =
 subscriptions model =
     Sub.batch
         [ every second Tick
-        , Keyboard.downs handleKeyPress
+        , Sub.map NavigationMsg Navigation.subscriptions
         ]
-
-
-handleKeyPress : Keyboard.KeyCode -> Msg
-handleKeyPress keyCode =
-    case keyCode of
-        13 ->
-            NavigationMsg Navigation.Forward
-
-        32 ->
-            NavigationMsg Navigation.Forward
-
-        39 ->
-            NavigationMsg Navigation.Forward
-
-        37 ->
-            NavigationMsg Navigation.Back
-
-        _ ->
-            Noop
 
 
 
