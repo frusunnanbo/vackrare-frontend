@@ -77,10 +77,10 @@ navigation : Slides slide -> Html Msg
 navigation model =
     div [ id Styles.Navigation ]
         [ button
-            [ Html.Events.onClick Back ]
-            [ Html.text "<" ]
-        , span [ class [ Styles.DisplayNumber ] ] [ Html.text (toString (currentSlide model)) ]
+            [ onClick Back ]
+            [ text "<" ]
+        , span [ class [ Styles.DisplayNumber ] ] [ text (toString (currentSlide model)) ]
         , button
-            [ Html.Events.onClick Forward ]
-            [ Html.text ">" ]
+            [ onClick Forward ]
+            [ text ">" ]
         ]
