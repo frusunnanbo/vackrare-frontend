@@ -29,7 +29,7 @@ main =
 
 
 type alias Model =
-    { slides : Navigation.Slides (Slide.Slide Counter.Msg Counter.Model)
+    { slides : Navigation.Model (Slide.Slide Counter.Msg Counter.Model)
     , elapsedTime : Int
     , slideModel : Counter.Model
     }
@@ -38,7 +38,6 @@ type alias Model =
 type Msg
     = NavigationMsg Navigation.Msg
     | Tick Time.Time
-    | Noop
     | CounterMsg Counter.Msg
 
 
@@ -71,9 +70,6 @@ update msg model =
         Tick time ->
             ( { model | elapsedTime = (model.elapsedTime + 1) }, Cmd.none )
 
-        Noop ->
-            ( model, Cmd.none )
-
         CounterMsg countermsg ->
             ( { model | slideModel = Counter.update countermsg model.slideModel }, Cmd.none )
 
@@ -99,7 +95,7 @@ view : Model -> Html.Html Msg
 view model =
     Html.div []
         [ Html.map CounterMsg (slide model)
-        , Html.map NavigationMsg (Navigation.navigation model.slides)
+        , Html.map NavigationMsg (Navigation.view model.slides)
         , elapsed model
         ]
 

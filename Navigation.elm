@@ -10,11 +10,11 @@ import Styles
 -- MODEL
 
 
-type alias Slides slide =
+type alias Model slide =
     { previous : List slide, current : slide, next : List slide }
 
 
-init : slide -> List slide -> Slides slide
+init : slide -> List slide -> Model slide
 init firstSlide slides =
     { previous = []
     , current = firstSlide
@@ -32,7 +32,7 @@ type Msg
     | Noop
 
 
-update : Msg -> Slides slide -> Slides slide
+update : Msg -> Model slide -> Model slide
 update msg model =
     case msg of
         Forward ->
@@ -45,7 +45,7 @@ update msg model =
             model
 
 
-next : Slides slide -> Slides slide
+next : Model slide -> Model slide
 next slides =
     if List.isEmpty slides.next then
         slides
@@ -56,7 +56,7 @@ next slides =
         }
 
 
-previous : Slides slide -> Slides slide
+previous : Model slide -> Model slide
 previous slides =
     if List.isEmpty slides.previous then
         slides
@@ -67,7 +67,7 @@ previous slides =
         }
 
 
-currentSlide : Slides slide -> Int
+currentSlide : Model slide -> Int
 currentSlide slides =
     List.length slides.previous + 1
 
@@ -105,8 +105,8 @@ handleKeyPress keyCode =
 
 { id, class, classList } =
     CssHelpers.withNamespace ""
-navigation : Slides slide -> Html Msg
-navigation model =
+view : Model slide -> Html Msg
+view model =
     div [ id Styles.Navigation ]
         [ button
             [ onClick Back ]
