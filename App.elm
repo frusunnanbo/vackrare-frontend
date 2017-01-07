@@ -9,7 +9,7 @@ import Css exposing (..)
 import Css.Elements exposing (body)
 import Css.Namespace exposing (namespace)
 import Styles
-import Slides
+import Navigation
 import Slide exposing (createSlide, titleSlide, codeSlide)
 import Keyboard
 import Counter
@@ -29,15 +29,14 @@ main =
 
 
 type alias Model =
-    { slides : Slides.Slides (Slide.Slide Counter.Msg Counter.Model)
+    { slides : Navigation.Slides (Slide.Slide Counter.Msg Counter.Model)
     , elapsedTime : Int
     , slideModel : Counter.Model
     }
 
 
 type Msg
-    = Forward
-    | Back
+    = NavigationMsg Navigation.Msg
     | Tick Time.Time
     | Noop
     | CounterMsg Counter.Msg
@@ -57,7 +56,7 @@ slides =
 
 
 init =
-    ( { slides = Slides.init titleSlide slides, elapsedTime = 0, slideModel = 0 }, Cmd.none )
+    ( { slides = Navigation.init titleSlide slides, elapsedTime = 0, slideModel = 0 }, Cmd.none )
 
 
 
@@ -66,11 +65,8 @@ init =
 
 update msg model =
     case msg of
-        Forward ->
-            ( { model | slides = Slides.next model.slides }, Cmd.none )
-
-        Back ->
-            ( { model | slides = Slides.previous model.slides }, Cmd.none )
+        NavigationMsg msg ->
+            ( { model | slides = Navigation.next model.slides }, Cmd.none )
 
         Tick time ->
             ( { model | elapsedTime = (model.elapsedTime + 1) }, Cmd.none )
@@ -97,16 +93,16 @@ handleKeyPress : Keyboard.KeyCode -> Msg
 handleKeyPress keyCode =
     case keyCode of
         13 ->
-            Forward
+            NavigationMsg Navigation.Forward
 
         32 ->
-            Forward
+            NavigationMsg Navigation.Forward
 
         39 ->
-            Forward
+            NavigationMsg Navigation.Forward
 
         37 ->
-            Back
+            NavigationMsg Navigation.Back
 
         _ ->
             Noop
@@ -122,7 +118,7 @@ view : Model -> Html.Html Msg
 view model =
     Html.div []
         [ Html.map CounterMsg (slide model)
-        , navigation model
+        , Html.map NavigationMsg (Navigation.navigation model.slides)
         , elapsed model
         ]
 
@@ -134,16 +130,4 @@ slide model =
 elapsed model =
     div [ id Styles.Elapsed ]
         [ span [ class [ Styles.DisplayNumber ] ] [ Html.text (toString model.elapsedTime) ]
-        ]
-
-
-navigation model =
-    div [ id Styles.Navigation ]
-        [ button
-            [ Html.Events.onClick Back ]
-            [ Html.text "<" ]
-        , span [ class [ Styles.DisplayNumber ] ] [ Html.text (toString (Slides.currentSlide model.slides)) ]
-        , button
-            [ Html.Events.onClick Forward ]
-            [ Html.text ">" ]
         ]

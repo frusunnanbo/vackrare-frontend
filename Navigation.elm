@@ -1,7 +1,12 @@
-module Slides exposing (Slides, init, next, previous, currentSlide)
+module Navigation exposing (..)
 
-import Html
-import Slide
+import Html exposing (..)
+import Html.Events exposing (onClick)
+import Html.CssHelpers as CssHelpers
+import Styles
+
+
+-- MODEL
 
 
 type alias Slides slide =
@@ -14,6 +19,15 @@ init firstSlide slides =
     , current = firstSlide
     , next = slides
     }
+
+
+
+-- UPDATE
+
+
+type Msg
+    = Forward
+    | Back
 
 
 next : Slides slide -> Slides slide
@@ -41,3 +55,22 @@ previous slides =
 currentSlide : Slides slide -> Int
 currentSlide slides =
     List.length slides.previous + 1
+
+
+
+-- VIEW
+
+
+{ id, class, classList } =
+    CssHelpers.withNamespace ""
+navigation : Slides slide -> Html Msg
+navigation model =
+    div [ id Styles.Navigation ]
+        [ button
+            [ Html.Events.onClick Back ]
+            [ Html.text "<" ]
+        , span [ class [ Styles.DisplayNumber ] ] [ Html.text (toString (currentSlide model)) ]
+        , button
+            [ Html.Events.onClick Forward ]
+            [ Html.text ">" ]
+        ]
