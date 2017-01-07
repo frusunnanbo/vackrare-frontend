@@ -1,4 +1,4 @@
-module Slide exposing (Slide, titleSlide, createSlide)
+module Slide exposing (Slide, titleSlide, createSlide, codeSlide)
 
 import Html exposing (..)
 import Html.Attributes exposing (..)
@@ -9,25 +9,30 @@ import Css.Namespace exposing (namespace)
 import Styles
 
 
-type alias Slide msg =
-    { render : Html msg
+type alias Slide msg model =
+    { render : model -> Html msg
     }
 
 
-titleSlide : Slide msg
+titleSlide : Slide msg model
 titleSlide =
     { render = renderTitleSlide }
 
 
-createSlide : String -> Slide msg
+createSlide : String -> Slide msg model
 createSlide heading =
     { render = renderHeadingSlide heading }
 
 
+codeSlide : String -> (model -> Html msg) -> model -> Slide msg model
+codeSlide code view model =
+    { render = renderCodeSlide code view }
+
+
 { id, class, classList } =
     CssHelpers.withNamespace ""
-renderHeadingSlide : String -> Html msg
-renderHeadingSlide heading =
+renderHeadingSlide : String -> model -> Html msg
+renderHeadingSlide heading model =
     div []
         [ h1 []
             [ text heading ]
@@ -40,8 +45,8 @@ renderHeadingSlide heading =
         ]
 
 
-renderTitleSlide : Html msg
-renderTitleSlide =
+renderTitleSlide : model -> Html msg
+renderTitleSlide model =
     div []
         [ div [ class [ Styles.Title ] ]
             [ img [ src "elm-logo.png" ] []
@@ -54,4 +59,12 @@ renderTitleSlide =
             , p [] [ text "@frusunnanbo" ]
             ]
         , div [ class [ Styles.Logo ] ] [ img [ src "logo_white.png" ] [] ]
+        ]
+
+
+renderCodeSlide : String -> (model -> Html msg) -> model -> Html msg
+renderCodeSlide code view model =
+    div [ class [ Styles.CodeSlide ] ]
+        [ div [ class [ Styles.Code ] ] [ pre [] [ text code ] ]
+        , div [ class [ Styles.Compiled ] ] [ view model ]
         ]

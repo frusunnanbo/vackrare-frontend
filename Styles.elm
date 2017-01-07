@@ -21,6 +21,9 @@ type CssClasses
     | Logo
     | MainPicture
     | SlideHeading
+    | CodeSlide
+    | Code
+    | Compiled
 
 
 white =
@@ -64,6 +67,7 @@ css =
         [ body
             [ margin (px 0)
             , fontFamilies [ "Courier New", "Mono" ]
+            , fontSize (pt 14)
             , color foregroundColor
             ]
         , slide
@@ -100,8 +104,27 @@ slide =
                 ]
             , (.) SlideHeading
                 [ textAlign left ]
+            , (.) CodeSlide codeSlide
             ]
         ]
+
+
+codeSlide =
+    [ verticalAlign top
+    , children
+        [ div
+            [ width (pct 50)
+            , height (px (slideHeight - 100))
+            , display inlineBlock
+            , verticalAlign top
+            ]
+        , (.) Code
+            [ overflow scroll
+            ]
+        , (.) Compiled
+            [ display inlineBlock ]
+        ]
+    ]
 
 
 theme =

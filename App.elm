@@ -10,8 +10,9 @@ import Css.Elements exposing (body)
 import Css.Namespace exposing (namespace)
 import Styles
 import Slides
-import Slide exposing (createSlide, titleSlide)
+import Slide exposing (createSlide, titleSlide, codeSlide)
 import Keyboard
+import Counter
 
 
 main =
@@ -28,8 +29,9 @@ main =
 
 
 type alias Model =
-    { slides : Slides.Slides (Slide.Slide Msg)
+    { slides : Slides.Slides (Slide.Slide Counter.Msg Counter.Model)
     , elapsedTime : Int
+    , slideModel : Counter.Model
     }
 
 
@@ -38,6 +40,7 @@ type Msg
     | Back
     | Tick Time.Time
     | Noop
+    | CounterMsg Counter.Msg
 
 
 slides =
@@ -45,6 +48,7 @@ slides =
     , createSlide "Under mellantiden"
     , createSlide "Nuförtiden"
     , createSlide "The Elm Architecture"
+    , codeSlide Counter.code Counter.view 0
     , createSlide "Elm 101"
     , createSlide "Navigating a set of slides"
     , createSlide "Keeping track of time"
@@ -53,7 +57,7 @@ slides =
 
 
 init =
-    ( { slides = Slides.init titleSlide slides, elapsedTime = 0 }, Cmd.none )
+    ( { slides = Slides.init titleSlide slides, elapsedTime = 0, slideModel = 0 }, Cmd.none )
 
 
 
@@ -73,6 +77,9 @@ update msg model =
 
         Noop ->
             ( model, Cmd.none )
+
+        CounterMsg countermsg ->
+            ( { model | slideModel = Counter.update countermsg model.slideModel }, Cmd.none )
 
 
 
@@ -111,16 +118,17 @@ handleKeyPress keyCode =
 
 { id, class, classList } =
     Html.CssHelpers.withNamespace ""
+view : Model -> Html.Html Msg
 view model =
     Html.div []
-        [ slide model
+        [ Html.map CounterMsg (slide model)
         , navigation model
         , elapsed model
         ]
 
 
 slide model =
-    div [ id Styles.Slide ] [ model.slides.current.render ]
+    div [ id Styles.Slide ] [ model.slides.current.render model.slideModel ]
 
 
 elapsed model =
