@@ -1,13 +1,8 @@
 module Main exposing (..)
 
 import Html exposing (h1, div, input, button, span)
-import Html.Attributes
-import Html.Events
 import Html.CssHelpers
 import Time exposing (Time, every, second)
-import Css exposing (..)
-import Css.Elements exposing (body)
-import Css.Namespace exposing (namespace)
 import Styles
 import Navigation
 import Slide exposing (createSlide, titleSlide, codeSlide)

@@ -1,4 +1,4 @@
-module Navigation exposing (..)
+module Navigation exposing (Model, Msg, init, update, subscriptions, view)
 
 import Html exposing (..)
 import Html.Events exposing (onClick)
