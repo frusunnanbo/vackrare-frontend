@@ -110,19 +110,30 @@ slide =
 
 
 codeSlide =
-    [ verticalAlign top
-    , children
+    [ children
         [ div
-            [ width (pct 50)
-            , height (px (slideHeight - 100))
+            [ height (px (slideHeight - 100))
             , display inlineBlock
+            , padding (px 10)
+            , border3 (px 4) solid elmLightBlue
+            , borderRadius (px 3)
+            , backgroundColor foregroundColor
+            , color baseColor
             , verticalAlign top
             ]
         , (.) Code
             [ overflow scroll
+            , width (pct 75)
             ]
         , (.) Compiled
-            [ display inlineBlock ]
+            [ display inlineBlock
+            , width (pct 15)
+            , marginLeft (pct 2)
+            , textAlign center
+            , descendants
+                [ everything [ marginTop (pct 20) ]
+                ]
+            ]
         ]
     ]
 
