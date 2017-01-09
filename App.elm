@@ -8,6 +8,7 @@ import Navigation
 import Slide exposing (createSlide, titleSlide, codeSlide)
 import Keyboard
 import Counter
+import Twitter
 
 
 main =
@@ -24,16 +25,21 @@ main =
 
 
 type alias Model =
-    { slides : Navigation.Model (Slide.Slide Counter.Msg Counter.Model)
+    { slides : Navigation.Model (Slide.Slide SlideMsg Counter.Model)
     , elapsedTime : Int
     , slideModel : Counter.Model
     }
 
 
+type SlideMsg
+    = CounterMsg Counter.Msg
+    | TwitterMsg Twitter.Msg
+
+
 type Msg
     = NavigationMsg Navigation.Msg
     | Tick Time.Time
-    | CounterMsg Counter.Msg
+    | SlideComponentMsg SlideMsg
 
 
 slides =
@@ -41,12 +47,17 @@ slides =
     , createSlide "Under mellantiden"
     , createSlide "Nuförtiden"
     , createSlide "The Elm Architecture"
-    , codeSlide Counter.code Counter.view 0
+    , codeSlide Counter.code (convert Counter.view) 0
     , createSlide "Elm 101"
     , createSlide "Navigating a set of slides"
     , createSlide "Keeping track of time"
-    , createSlide "Fetching Stuff from a server"
+      ---, Twitter.slide
     ]
+
+
+convert : (Counter.Model -> Html.Html Counter.Msg) -> (Counter.Model -> Html.Html SlideMsg)
+convert counterView =
+    Html.map CounterMsg << counterView
 
 
 init =
@@ -65,8 +76,17 @@ update msg model =
         Tick time ->
             ( { model | elapsedTime = (model.elapsedTime + 1) }, Cmd.none )
 
-        CounterMsg countermsg ->
-            ( { model | slideModel = Counter.update countermsg model.slideModel }, Cmd.none )
+        SlideComponentMsg slideMsg ->
+            ( { model | slideModel = updateSlide slideMsg model.slideModel }, Cmd.none )
+
+
+updateSlide msg slideModel =
+    case msg of
+        CounterMsg counterMsg ->
+            Counter.update counterMsg slideModel
+
+        TwitterMsg twitterMsg ->
+            slideModel
 
 
 
@@ -89,14 +109,15 @@ subscriptions model =
 view : Model -> Html.Html Msg
 view model =
     Html.div []
-        [ Html.map CounterMsg (slide model)
+        [ Html.map SlideComponentMsg (slide model model.slideModel)
         , Html.map NavigationMsg (Navigation.view model.slides)
         , elapsed model
         ]
 
 
-slide model =
-    div [ id Styles.Slide ] [ model.slides.current.render model.slideModel ]
+slide : Model -> Counter.Model -> Html.Html SlideMsg
+slide bigmodel model =
+    Html.div [ id Styles.Slide ] [ bigmodel.slides.current.render model ]
 
 
 elapsed model =
