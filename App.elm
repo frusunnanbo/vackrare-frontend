@@ -24,11 +24,45 @@ main =
 -- MODEL
 
 
+type alias SlideModel =
+    { counterModel : Counter.Model, twitterModel : Twitter.Model }
+
+
 type alias Model =
-    { slides : Navigation.Model (Slide.Slide SlideMsg Counter.Model)
+    { slides : Navigation.Model (Slide.Slide SlideMsg SlideModel)
     , elapsedTime : Int
-    , slideModel : Counter.Model
+    , slideModel : SlideModel
     }
+
+
+slides =
+    [ createSlide "För hundra år sedan"
+    , createSlide "Under mellantiden"
+    , createSlide "Nuförtiden"
+    , createSlide "The Elm Architecture"
+    , codeSlide Counter.code counterSlideView initSlideModel
+    , createSlide "Elm 101"
+    , createSlide "Navigating a set of slides"
+    , createSlide "Keeping track of time"
+      ---, Twitter.slide
+    ]
+
+
+counterSlideView : SlideModel -> Html.Html SlideMsg
+counterSlideView model =
+    Html.map CounterMsg (Counter.view model.counterModel)
+
+
+init =
+    ( { slides = Navigation.init titleSlide slides, elapsedTime = 0, slideModel = initSlideModel }, Cmd.none )
+
+
+initSlideModel =
+    { counterModel = 0, twitterModel = Twitter.init }
+
+
+
+-- UPDATE
 
 
 type SlideMsg
@@ -40,32 +74,6 @@ type Msg
     = NavigationMsg Navigation.Msg
     | Tick Time.Time
     | SlideComponentMsg SlideMsg
-
-
-slides =
-    [ createSlide "För hundra år sedan"
-    , createSlide "Under mellantiden"
-    , createSlide "Nuförtiden"
-    , createSlide "The Elm Architecture"
-    , codeSlide Counter.code (convert Counter.view) 0
-    , createSlide "Elm 101"
-    , createSlide "Navigating a set of slides"
-    , createSlide "Keeping track of time"
-      ---, Twitter.slide
-    ]
-
-
-convert : (Counter.Model -> Html.Html Counter.Msg) -> (Counter.Model -> Html.Html SlideMsg)
-convert counterView =
-    Html.map CounterMsg << counterView
-
-
-init =
-    ( { slides = Navigation.init titleSlide slides, elapsedTime = 0, slideModel = 0 }, Cmd.none )
-
-
-
--- UPDATE
 
 
 update msg model =
@@ -80,13 +88,14 @@ update msg model =
             ( { model | slideModel = updateSlide slideMsg model.slideModel }, Cmd.none )
 
 
-updateSlide msg slideModel =
+updateSlide : SlideMsg -> SlideModel -> SlideModel
+updateSlide msg model =
     case msg of
         CounterMsg counterMsg ->
-            Counter.update counterMsg slideModel
+            { model | counterModel = Counter.update counterMsg model.counterModel }
 
         TwitterMsg twitterMsg ->
-            slideModel
+            model
 
 
 
@@ -115,7 +124,7 @@ view model =
         ]
 
 
-slide : Model -> Counter.Model -> Html.Html SlideMsg
+slide : Model -> SlideModel -> Html.Html SlideMsg
 slide bigmodel model =
     Html.div [ id Styles.Slide ] [ bigmodel.slides.current.render model ]
 

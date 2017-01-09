@@ -1,4 +1,4 @@
-module Twitter exposing (slide, Msg)
+module Twitter exposing (slide, init, Msg, Model)
 
 import Html exposing (..)
 import Html.Events exposing (onInput)
@@ -27,6 +27,11 @@ token =
 
 type alias Model =
     { tag : String, token : String }
+
+
+init : Model
+init =
+    { tag = "", token = "" }
 
 
 
