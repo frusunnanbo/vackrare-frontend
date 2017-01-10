@@ -6,6 +6,9 @@ repl-temp-*
 # My atom plugin settings...
 .on-save.json
 
+# My secret app token
+token.txt
+
 # Let's assume all .js and .css files are generated for now
 *.js
 *.css

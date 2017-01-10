@@ -44,13 +44,18 @@ slides =
     , createSlide "Elm 101"
     , createSlide "Navigating a set of slides"
     , createSlide "Keeping track of time"
-      ---, Twitter.slide
+    , codeSlide "<code>" twitterSlideView initSlideModel
     ]
 
 
 counterSlideView : SlideModel -> Html.Html SlideMsg
 counterSlideView model =
     Html.map CounterMsg (Counter.view model.counterModel)
+
+
+twitterSlideView : SlideModel -> Html.Html SlideMsg
+twitterSlideView model =
+    Html.map TwitterMsg (Twitter.view model.twitterModel)
 
 
 init =
@@ -95,7 +100,7 @@ updateSlide msg model =
             { model | counterModel = Counter.update counterMsg model.counterModel }
 
         TwitterMsg twitterMsg ->
-            model
+            { model | twitterModel = Twitter.update twitterMsg model.twitterModel }
 
 
 
