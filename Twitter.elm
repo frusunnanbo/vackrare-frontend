@@ -3,7 +3,7 @@ module Twitter exposing (slide, init, update, view, Msg, Model)
 import Html exposing (..)
 import Html.Events exposing (onInput, onClick)
 import Html.Attributes exposing (id, for)
-import Http exposing (Error, send, getString)
+import Http exposing (Error(..), send, getString)
 
 
 slide =
@@ -30,9 +30,14 @@ type alias Model =
     { tag : String, token : String, tweet : String }
 
 
-init : Model
+init : ( Model, Cmd Msg )
 init =
-    { tag = "", token = "", tweet = "" }
+    ( { tag = "", token = "", tweet = "" }, getToken )
+
+
+getToken : Cmd Msg
+getToken =
+    Http.send SecretResponse (Http.getString "/token.txt")
 
 
 
@@ -43,7 +48,8 @@ type Msg
     = NewTag String
     | NewToken
     | Submit
-    | Response (Result Error String)
+    | SecretResponse (Result Error String)
+    | TwitterResponse (Result Error String)
 
 
 update : Msg -> Model -> ( Model, Cmd Msg )
@@ -56,15 +62,42 @@ update msg model =
             ( model, Cmd.none )
 
         Submit ->
-            ( model, Http.send Response (Http.getString url) )
+            ( model, Http.send TwitterResponse (Http.getString url) )
 
-        Response result ->
+        SecretResponse result ->
+            case result of
+                Ok response ->
+                    ( { model | token = response }, Cmd.none )
+
+                Err error ->
+                    ( { model | tweet = "Token Error: " ++ (errorMessage error) }, Cmd.none )
+
+        TwitterResponse result ->
             case result of
                 Ok response ->
                     ( { model | tweet = response }, Cmd.none )
 
                 Err error ->
                     ( { model | tweet = "Error!" }, Cmd.none )
+
+
+errorMessage : Error -> String
+errorMessage error =
+    case error of
+        BadUrl url ->
+            "Bad url " ++ url
+
+        Timeout ->
+            "Timeout"
+
+        NetworkError ->
+            "Network Error"
+
+        BadStatus response ->
+            "Status: " ++ response.status.message
+
+        BadPayload message response ->
+            "Bad payload:  " ++ message ++ " - " ++ response.body
 
 
 

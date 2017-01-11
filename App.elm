@@ -35,16 +35,16 @@ type alias Model =
     }
 
 
-slides =
+slides slideModel =
     [ createSlide "För hundra år sedan"
     , createSlide "Under mellantiden"
     , createSlide "Nuförtiden"
     , createSlide "The Elm Architecture"
-    , codeSlide Counter.code counterSlideView initSlideModel
+    , codeSlide Counter.code counterSlideView slideModel
     , createSlide "Elm 101"
     , createSlide "Navigating a set of slides"
     , createSlide "Keeping track of time"
-    , codeSlide "<code>" twitterSlideView initSlideModel
+    , codeSlide "<code>" twitterSlideView slideModel
     ]
 
 
@@ -59,11 +59,20 @@ twitterSlideView model =
 
 
 init =
-    ( { slides = Navigation.init titleSlide slides, elapsedTime = 0, slideModel = initSlideModel }, Cmd.none )
+    let
+        ( slideModel, slideCmd ) =
+            initSlides
+    in
+        ( { slides = Navigation.init titleSlide (slides slideModel), elapsedTime = 0, slideModel = slideModel }, Cmd.map SlideComponentMsg slideCmd )
 
 
-initSlideModel =
-    { counterModel = 0, twitterModel = Twitter.init }
+initSlides : ( SlideModel, Cmd SlideMsg )
+initSlides =
+    let
+        ( twitterModel, twitterCmd ) =
+            Twitter.init
+    in
+        ( { counterModel = 0, twitterModel = twitterModel }, Cmd.map TwitterMsg twitterCmd )
 
 
 
