@@ -1,8 +1,9 @@
 module Twitter exposing (slide, init, update, view, Msg, Model)
 
 import Html exposing (..)
-import Html.Events exposing (onInput)
+import Html.Events exposing (onInput, onClick)
 import Html.Attributes exposing (id, for)
+import Http exposing (Error, send, getString)
 
 
 slide =
@@ -26,12 +27,12 @@ token =
 
 
 type alias Model =
-    { tag : String, token : String }
+    { tag : String, token : String, tweet : String }
 
 
 init : Model
 init =
-    { tag = "", token = "" }
+    { tag = "", token = "", tweet = "" }
 
 
 
@@ -42,19 +43,28 @@ type Msg
     = NewTag String
     | NewToken
     | Submit
+    | Response (Result Error String)
 
 
-update : Msg -> Model -> Model
+update : Msg -> Model -> ( Model, Cmd Msg )
 update msg model =
     case msg of
         NewTag tag ->
-            { model | tag = tag }
+            ( { model | tag = tag }, Cmd.none )
 
         NewToken ->
-            model
+            ( model, Cmd.none )
 
         Submit ->
-            model
+            ( model, Http.send Response (Http.getString url) )
+
+        Response result ->
+            case result of
+                Ok response ->
+                    ( { model | tweet = response }, Cmd.none )
+
+                Err error ->
+                    ( { model | tweet = "Error!" }, Cmd.none )
 
 
 
@@ -66,5 +76,6 @@ view model =
     div []
         [ label [ for "tagInput" ] [ text "Hashtag #" ]
         , input [ onInput NewTag ] []
-        , "This is where the latest #" ++ model.tag ++ " Twitter status goes." |> text
+        , button [ onClick Submit ] [ text "Search Twitter" ]
+        , text model.tweet
         ]

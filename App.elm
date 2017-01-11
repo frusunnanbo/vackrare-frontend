@@ -90,17 +90,25 @@ update msg model =
             ( { model | elapsedTime = (model.elapsedTime + 1) }, Cmd.none )
 
         SlideComponentMsg slideMsg ->
-            ( { model | slideModel = updateSlide slideMsg model.slideModel }, Cmd.none )
+            let
+                ( slideModel, slideCmd ) =
+                    updateSlide slideMsg model.slideModel
+            in
+                ( { model | slideModel = slideModel }, Cmd.map SlideComponentMsg slideCmd )
 
 
-updateSlide : SlideMsg -> SlideModel -> SlideModel
+updateSlide : SlideMsg -> SlideModel -> ( SlideModel, Cmd SlideMsg )
 updateSlide msg model =
     case msg of
         CounterMsg counterMsg ->
-            { model | counterModel = Counter.update counterMsg model.counterModel }
+            ( { model | counterModel = Counter.update counterMsg model.counterModel }, Cmd.none )
 
         TwitterMsg twitterMsg ->
-            { model | twitterModel = Twitter.update twitterMsg model.twitterModel }
+            let
+                ( twitterModel, cmd ) =
+                    Twitter.update twitterMsg model.twitterModel
+            in
+                ( { model | twitterModel = twitterModel }, Cmd.map TwitterMsg cmd )
 
 
 
