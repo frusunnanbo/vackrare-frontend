@@ -5,7 +5,8 @@ import Html.Attributes exposing (style)
 import Html.CssHelpers as CssHelpers
 import Css exposing (asPairs, width, px)
 import Time exposing (Time, every, second)
-import Date exposing (fromTime)
+import Date exposing (fromTime, toTime)
+import Result exposing (withDefault)
 import Styles
 
 
@@ -23,7 +24,9 @@ init : Model
 init =
     let
         targetTime =
-            1484509336000
+            Date.fromString "2017-01-15T21:00+01:00"
+                |> withDefault (fromTime 1484513103000)
+                |> toTime
 
         duration =
             45 * 60 * 1000
@@ -82,36 +85,40 @@ view model =
 
 formatTime : Time -> String
 formatTime time =
-    formatMinute time
+    (time
+        |> minuteOf
+        |> padLeft
+    )
         ++ ":"
-        ++ formatSecond time
+        ++ (time
+                |> secondOf
+                |> padLeft
+           )
 
 
-formatMinute : Time -> String
-formatMinute time =
-    time
-        |> fromTime
-        |> Date.minute
-        |> toString
+padLeft : Int -> String
+padLeft time =
+    if time < 10 then
+        "0" ++ toString time
+    else
+        toString time
 
 
-formatSecond : Time -> String
-formatSecond time =
-    let
-        seconds =
-            secondOf time
-    in
-        if seconds < 10 then
-            "0" ++ toString seconds
-        else
-            toString seconds
+minuteOf : Time -> Int
+minuteOf time =
+    time |> timeUnitOf Date.minute
 
 
 secondOf : Time -> Int
 secondOf time =
+    time |> timeUnitOf Date.second
+
+
+timeUnitOf : (Date.Date -> Int) -> Time -> Int
+timeUnitOf extractor time =
     time
         |> fromTime
-        |> Date.second
+        |> extractor
 
 
 elapsedWidth : Model -> Float
