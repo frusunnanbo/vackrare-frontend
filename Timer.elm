@@ -10,6 +10,16 @@ import Result exposing (withDefault)
 import Styles
 
 
+main =
+    program
+        { init = ( init, Cmd.none )
+        , update = \msg model -> ( update msg model, Cmd.none )
+        , subscriptions = always subscriptions
+        , view = view
+        }
+
+
+
 -- MODEL
 
 
@@ -24,7 +34,7 @@ init : Model
 init =
     let
         targetTime =
-            Date.fromString "2017-01-15T21:00+01:00"
+            Date.fromString "2017-01-15T22:00+01:00"
                 |> withDefault (fromTime 1484513103000)
                 |> toTime
 
