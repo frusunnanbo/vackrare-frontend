@@ -12,6 +12,8 @@ type CssIds
     | Theme
     | Slide
     | CurrentSlide
+    | Timer
+    | Total
 
 
 type CssClasses
@@ -60,6 +62,14 @@ foregroundColor =
 
 slideHeight =
     600
+
+
+timerHeight =
+    40
+
+
+timerWidth =
+    200
 
 
 css =
@@ -148,11 +158,30 @@ theme =
 
 
 elapsed =
-    (#) Elapsed
+    (#) Timer
         [ topBox accentColor
         , position absolute
         , left (px 20)
         , bottom (px 20)
+        , descendants
+            [ (#) Total
+                [ width (px timerWidth)
+                , height (px timerHeight)
+                , backgroundColor baseColor
+                , border3 (px 1) solid (darker accentColor 0.2)
+                , borderRadius (px 4)
+                , descendants
+                    [ (#) Elapsed
+                        [ backgroundColor accentColor
+                        , height (px timerHeight)
+                        , width (px (timerWidth - 100))
+                        , display inlineBlock
+                        , borderRadius (px 4)
+                        ]
+                    , everything [ position absolute ]
+                    ]
+                ]
+            ]
         ]
 
 
