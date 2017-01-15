@@ -5,10 +5,9 @@ import Html.CssHelpers
 import Time exposing (Time, every, second)
 import Styles
 import Navigation
+import Timer
 import Slide exposing (createSlide, titleSlide, codeSlide)
-import Keyboard
 import Counter
-import Twitter
 
 
 main =
@@ -25,12 +24,12 @@ main =
 
 
 type alias SlideModel =
-    { counterModel : Counter.Model, twitterModel : Twitter.Model }
+    { counterModel : Counter.Model }
 
 
 type alias Model =
     { slides : Navigation.Model (Slide.Slide SlideMsg SlideModel)
-    , elapsedTime : Int
+    , timerModel : Timer.Model
     , slideModel : SlideModel
     }
 
@@ -44,7 +43,6 @@ slides slideModel =
     , createSlide "Elm 101"
     , createSlide "Navigating a set of slides"
     , createSlide "Keeping track of time"
-    , codeSlide "<code>" twitterSlideView slideModel
     ]
 
 
@@ -53,26 +51,23 @@ counterSlideView model =
     Html.map CounterMsg (Counter.view model.counterModel)
 
 
-twitterSlideView : SlideModel -> Html.Html SlideMsg
-twitterSlideView model =
-    Html.map TwitterMsg (Twitter.view model.twitterModel)
-
-
+init : ( Model, Cmd Msg )
 init =
     let
         ( slideModel, slideCmd ) =
             initSlides
     in
-        ( { slides = Navigation.init titleSlide (slides slideModel), elapsedTime = 0, slideModel = slideModel }, Cmd.map SlideComponentMsg slideCmd )
+        ( { slides = Navigation.init titleSlide (slides slideModel)
+          , timerModel = Timer.init
+          , slideModel = slideModel
+          }
+        , Cmd.map SlideComponentMsg slideCmd
+        )
 
 
 initSlides : ( SlideModel, Cmd SlideMsg )
 initSlides =
-    let
-        ( twitterModel, twitterCmd ) =
-            Twitter.init
-    in
-        ( { counterModel = 0, twitterModel = twitterModel }, Cmd.map TwitterMsg twitterCmd )
+    ( { counterModel = 0 }, Cmd.none )
 
 
 
@@ -81,22 +76,21 @@ initSlides =
 
 type SlideMsg
     = CounterMsg Counter.Msg
-    | TwitterMsg Twitter.Msg
 
 
 type Msg
     = NavigationMsg Navigation.Msg
-    | Tick Time.Time
+    | TimerMsg Timer.Msg
     | SlideComponentMsg SlideMsg
 
 
 update msg model =
     case msg of
+        TimerMsg msg ->
+            ( { model | timerModel = Timer.update msg model.timerModel }, Cmd.none )
+
         NavigationMsg msg ->
             ( { model | slides = Navigation.update msg model.slides }, Cmd.none )
-
-        Tick time ->
-            ( { model | elapsedTime = (model.elapsedTime + 1) }, Cmd.none )
 
         SlideComponentMsg slideMsg ->
             let
@@ -112,13 +106,6 @@ updateSlide msg model =
         CounterMsg counterMsg ->
             ( { model | counterModel = Counter.update counterMsg model.counterModel }, Cmd.none )
 
-        TwitterMsg twitterMsg ->
-            let
-                ( twitterModel, cmd ) =
-                    Twitter.update twitterMsg model.twitterModel
-            in
-                ( { model | twitterModel = twitterModel }, Cmd.map TwitterMsg cmd )
-
 
 
 -- subscriptions
@@ -126,7 +113,7 @@ updateSlide msg model =
 
 subscriptions model =
     Sub.batch
-        [ every second Tick
+        [ Sub.map TimerMsg Timer.subscriptions
         , Sub.map NavigationMsg Navigation.subscriptions
         ]
 
@@ -142,16 +129,10 @@ view model =
     Html.div []
         [ Html.map SlideComponentMsg (slide model model.slideModel)
         , Html.map NavigationMsg (Navigation.view model.slides)
-        , elapsed model
+        , Html.map TimerMsg (Timer.view model.timerModel)
         ]
 
 
 slide : Model -> SlideModel -> Html.Html SlideMsg
 slide bigmodel model =
     Html.div [ id Styles.Slide ] [ bigmodel.slides.current.render model ]
-
-
-elapsed model =
-    div [ id Styles.Elapsed ]
-        [ span [ class [ Styles.DisplayNumber ] ] [ Html.text (toString model.elapsedTime) ]
-        ]
