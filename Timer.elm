@@ -24,8 +24,7 @@ main =
 
 
 type alias Model =
-    { now : Time
-    , duration : Time
+    { duration : Time
     , targetTime : Time
     , timeLeft : Time
     }
@@ -39,7 +38,6 @@ init =
     in
         { targetTime = targetTime "2017-01-16T02:12+01:00"
         , timeLeft = duration
-        , now = 0
         , duration = duration
         }
 
@@ -68,7 +66,7 @@ update : Msg -> Model -> Model
 update msg model =
     case msg of
         Tick time ->
-            { model | now = time, timeLeft = newTimeLeft time model }
+            { model | timeLeft = newTimeLeft time model }
 
 
 newTimeLeft : Time -> Model -> Time
