@@ -27,24 +27,33 @@ type alias Model =
     { now : Time
     , duration : Time
     , targetTime : Time
+    , timeLeft : Time
     }
 
 
 init : Model
 init =
     let
-        targetTime =
-            Date.fromString "2017-01-15T22:00+01:00"
-                |> withDefault (fromTime 1484513103000)
-                |> toTime
-
         duration =
-            45 * 60 * 1000
+            minutes 45
     in
-        { targetTime = targetTime
+        { targetTime = targetTime "2017-01-16T02:12+01:00"
+        , timeLeft = duration
         , now = 0
         , duration = duration
         }
+
+
+targetTime : String -> Time
+targetTime dateString =
+    Date.fromString dateString
+        |> withDefault (fromTime 1484513103000)
+        |> toTime
+
+
+minutes : Int -> Time
+minutes minutes =
+    minutes * 60 * 1000 |> toFloat
 
 
 
@@ -59,7 +68,21 @@ update : Msg -> Model -> Model
 update msg model =
     case msg of
         Tick time ->
-            { model | now = time }
+            { model | now = time, timeLeft = newTimeLeft time model }
+
+
+newTimeLeft : Time -> Model -> Time
+newTimeLeft time model =
+    let
+        timeLeft =
+            model.targetTime - time
+    in
+        if timeLeft < 0 then
+            0
+        else if timeLeft > model.duration then
+            model.duration
+        else
+            timeLeft
 
 
 
@@ -88,9 +111,21 @@ view model =
         [ div [ id Styles.Total ]
             [ div [ id Styles.Elapsed, width (elapsedWidth model) ] []
             , span [ class [ Styles.DisplayNumber ] ]
-                [ timeLeft model |> formatTime |> text ]
+                [ timeLeftText model |> text ]
             ]
         ]
+
+
+timeLeftText : Model -> String
+timeLeftText model =
+    let
+        left =
+            model.timeLeft
+    in
+        if left > 0 then
+            left |> formatTime
+        else
+            "Time's up!"
 
 
 formatTime : Time -> String
@@ -133,14 +168,14 @@ timeUnitOf extractor time =
 
 elapsedWidth : Model -> Float
 elapsedWidth model =
-    Styles.timerWidth - (timeLeftPercentage model * Styles.timerWidth)
+    Styles.timerWidth - ((timeLeftPercentage model) * Styles.timerWidth)
 
 
 timeLeftPercentage : Model -> Float
 timeLeftPercentage model =
-    (timeLeft model) / model.duration
+    model.timeLeft / model.duration
 
 
 timeLeft : Model -> Time
 timeLeft model =
-    model.targetTime - model.now
+    model.timeLeft
