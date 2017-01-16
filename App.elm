@@ -6,7 +6,7 @@ import Time exposing (Time, every, second)
 import Styles
 import Navigation
 import Timer
-import Slide exposing (createSlide, titleSlide, codeSlide)
+import Slide exposing (createSlide, titleSlide, pictureSlide, codeSlide)
 import Counter
 
 
@@ -35,9 +35,9 @@ type alias Model =
 
 
 slides slideModel =
-    [ createSlide "För hundra år sedan"
-    , createSlide "Under mellantiden"
-    , createSlide "Nuförtiden"
+    [ pictureSlide "För hundra år sedan" "beginning_of_time.jpg"
+    , pictureSlide "Under mellantiden" "mean_time.jpg"
+    , pictureSlide "Nuförtiden" "elm_discovery.jpg"
     , createSlide "The Elm Architecture"
     , codeSlide Counter.code counterSlideView slideModel
     , createSlide "Elm 101"

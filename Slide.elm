@@ -1,4 +1,4 @@
-module Slide exposing (Slide, titleSlide, createSlide, codeSlide)
+module Slide exposing (Slide, titleSlide, pictureSlide, createSlide, codeSlide)
 
 import Html exposing (..)
 import Html.Attributes exposing (..)
@@ -19,6 +19,11 @@ titleSlide =
     { render = renderTitleSlide }
 
 
+pictureSlide : String -> String -> Slide msg model
+pictureSlide heading picture =
+    { render = renderPictureSlide heading picture }
+
+
 createSlide : String -> Slide msg model
 createSlide heading =
     { render = renderHeadingSlide heading }
@@ -33,12 +38,17 @@ codeSlide code view model =
     CssHelpers.withNamespace ""
 renderHeadingSlide : String -> model -> Html msg
 renderHeadingSlide heading model =
+    renderPictureSlide heading "your-dream-appearance.png" model
+
+
+renderPictureSlide : String -> String -> model -> Html msg
+renderPictureSlide heading picture model =
     div []
         [ h1 []
             [ text heading ]
         , div [ class [ Styles.MainPicture ] ]
             [ img
-                [ src "your-dream-appearance.png"
+                [ src picture
                 ]
                 []
             ]

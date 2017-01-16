@@ -106,9 +106,13 @@ slide =
                 ]
             , (.) MainPicture
                 [ textAlign center
+                , height (px (slideHeight - 100))
+                , verticalAlign middle
                 , descendants
                     [ img
                         [ maxHeight (px (slideHeight - 100))
+                        , maxWidth (pct 90)
+                        , verticalAlign middle
                         ]
                     ]
                 ]
