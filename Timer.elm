@@ -26,7 +26,7 @@ main =
 type alias Model =
     { duration : Time
     , targetTime : Time
-    , timeLeft : Time
+    , timeLeft : TimeLeft
     }
 
 
@@ -36,8 +36,8 @@ init =
         duration =
             minutes 45
     in
-        { targetTime = targetTime "2017-01-16T02:12+01:00"
-        , timeLeft = duration
+        { targetTime = targetTime "2017-01-16T01:40+01:00"
+        , timeLeft = NotStarted
         , duration = duration
         }
 
@@ -62,6 +62,12 @@ type Msg
     = Tick Time
 
 
+type TimeLeft
+    = NotStarted
+    | Left Time
+    | TimesUp
+
+
 update : Msg -> Model -> Model
 update msg model =
     case msg of
@@ -69,18 +75,18 @@ update msg model =
             { model | timeLeft = newTimeLeft time model }
 
 
-newTimeLeft : Time -> Model -> Time
+newTimeLeft : Time -> Model -> TimeLeft
 newTimeLeft time model =
     let
         timeLeft =
             model.targetTime - time
     in
         if timeLeft < 0 then
-            0
+            TimesUp
         else if timeLeft > model.duration then
-            model.duration
+            NotStarted
         else
-            timeLeft
+            Left timeLeft
 
 
 
@@ -120,10 +126,15 @@ timeLeftText model =
         left =
             model.timeLeft
     in
-        if left > 0 then
-            left |> formatTime
-        else
-            "Time's up!"
+        case model.timeLeft of
+            TimesUp ->
+                "Time's up!"
+
+            NotStarted ->
+                "Not started."
+
+            Left time ->
+                time |> formatTime
 
 
 formatTime : Time -> String
@@ -171,9 +182,17 @@ elapsedWidth model =
 
 timeLeftPercentage : Model -> Float
 timeLeftPercentage model =
-    model.timeLeft / model.duration
+    case model.timeLeft of
+        NotStarted ->
+            1
+
+        TimesUp ->
+            0
+
+        Left time ->
+            time / model.duration
 
 
-timeLeft : Model -> Time
+timeLeft : Model -> TimeLeft
 timeLeft model =
     model.timeLeft
