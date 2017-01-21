@@ -110,7 +110,7 @@ slide =
                 , verticalAlign middle
                 , descendants
                     [ img
-                        [ maxHeight (px (slideHeight - 100))
+                        [ maxHeight (pct 90)
                         , maxWidth (pct 90)
                         , verticalAlign middle
                         ]

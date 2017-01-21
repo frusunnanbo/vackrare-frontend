@@ -3,7 +3,7 @@ module Slide exposing (Slide, titleSlide, pictureSlide, createSlide, codeSlide)
 import Html exposing (..)
 import Html.Attributes exposing (..)
 import Html.CssHelpers as CssHelpers
-import Css
+import Css exposing (asPairs, px)
 import Css.Elements exposing (body)
 import Css.Namespace exposing (namespace)
 import Styles
@@ -19,9 +19,9 @@ titleSlide =
     { render = renderTitleSlide }
 
 
-pictureSlide : String -> String -> Slide msg model
-pictureSlide heading picture =
-    { render = renderPictureSlide heading picture }
+pictureSlide : String -> List String -> Slide msg model
+pictureSlide heading pictures =
+    { render = renderPictureSlide heading pictures }
 
 
 createSlide : String -> Slide msg model
@@ -38,20 +38,27 @@ codeSlide code view model =
     CssHelpers.withNamespace ""
 renderHeadingSlide : String -> model -> Html msg
 renderHeadingSlide heading model =
-    renderPictureSlide heading "your-dream-appearance.png" model
+    renderPictureSlide heading [ "your-dream-appearance.png" ] model
 
 
-renderPictureSlide : String -> String -> model -> Html msg
-renderPictureSlide heading picture model =
+renderPictureSlide : String -> List String -> model -> Html msg
+renderPictureSlide heading pictures model =
     div []
-        [ h1 []
-            [ text heading ]
-        , div [ class [ Styles.MainPicture ] ]
-            [ img
-                [ src picture
-                ]
-                []
+        (h1 [] [ text heading ] :: List.map (renderPicture (maxPictureHeight pictures)) pictures)
+
+
+maxPictureHeight : List picture -> Float
+maxPictureHeight pictures =
+    (Styles.slideHeight - 100) / toFloat (List.length pictures)
+
+
+renderPicture : Float -> String -> Html msg
+renderPicture maxHeight picture =
+    div [ class [ Styles.MainPicture ], asPairs [ Css.maxHeight (px maxHeight) ] |> style ]
+        [ img
+            [ src picture
             ]
+            []
         ]
 
 

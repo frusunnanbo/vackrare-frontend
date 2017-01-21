@@ -35,9 +35,9 @@ type alias Model =
 
 
 slides slideModel =
-    [ pictureSlide "För hundra år sedan" "beginning_of_time.jpg"
-    , pictureSlide "Under mellantiden" "mean_time.jpg"
-    , pictureSlide "Nuförtiden" "elm_discovery.jpg"
+    [ pictureSlide "För hundra år sedan" [ "piolinsidan.png", "beginning_of_time.jpg" ]
+    , pictureSlide "Under mellantiden" [ "mean_time.jpg" ]
+    , pictureSlide "Nuförtiden" [ "elm_discovery.jpg" ]
     , createSlide "The Elm Architecture"
     , codeSlide Counter.code counterSlideView slideModel
     , createSlide "Elm 101"
