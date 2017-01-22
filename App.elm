@@ -38,9 +38,8 @@ slides slideModel =
     [ pictureSlide "För hundra år sedan" [ "piolinsidan.png", "beginning_of_time.jpg" ]
     , pictureSlide "Under mellantiden" [ "mean_time.jpg" ]
     , pictureSlide "Nuförtiden" [ "elm_discovery.jpg" ]
-    , createSlide "The Elm Architecture"
+    , pictureSlide "The Elm Architecture" [ "elm-architecture.jpg" ]
     , codeSlide Counter.code counterSlideView slideModel
-    , createSlide "Elm 101"
     , createSlide "Navigating a set of slides"
     , createSlide "Keeping track of time"
     ]

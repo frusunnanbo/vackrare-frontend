@@ -36,7 +36,7 @@ init =
         duration =
             minutes 45
     in
-        { targetTime = targetTime "2017-01-16T01:40+01:00"
+        { targetTime = targetTime "2017-01-22T19:55+01:00"
         , timeLeft = NotStarted
         , duration = duration
         }
