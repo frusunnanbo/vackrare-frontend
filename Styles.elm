@@ -61,7 +61,7 @@ foregroundColor =
 
 
 slideHeight =
-    600
+    700
 
 
 timerHeight =
@@ -79,9 +79,9 @@ css =
             , fontFamilies [ "Courier New", "Mono" ]
             , fontSize (pt 14)
             , color foregroundColor
+            , backgroundColor baseColor
             ]
         , slide
-        , theme
         , elapsed
         , navigation
         , navigationButton
@@ -93,8 +93,7 @@ css =
 
 slide =
     (#) Slide
-        [ box baseColor
-        , paddingLeft (px 30)
+        [ paddingLeft (px 30)
         , margin (px 10)
         , height (px slideHeight)
         , descendants
@@ -150,15 +149,6 @@ codeSlide =
             ]
         ]
     ]
-
-
-theme =
-    (#) Theme
-        [ topBox accentColor
-        , position absolute
-        , left (px 20)
-        , bottom (px 20)
-        ]
 
 
 elapsed =
@@ -248,7 +238,8 @@ navigationButton =
 topBox color =
     mixin
         [ box color
-        , boxShadow4 (px 2) (px 2) (px 2) (rgb 200 200 200)
+        , borderRadius (px 4)
+          --, boxShadow4 (px 2) (px 2) (px 2) (rgb 200 200 200)
         ]
 
 
