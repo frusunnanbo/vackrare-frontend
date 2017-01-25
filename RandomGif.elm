@@ -75,14 +75,21 @@ subscriptions model =
 
 view model =
     div []
-        [ (model.url
+        [ button [ onClick GetImage ] [ text "Another cat please!" ]
+        , (model.url
             |> Maybe.map renderImage
-            |> Maybe.withDefault (div [] [ text "Nothing yet" ])
+            |> Maybe.withDefault noImage
           )
-        , button [ onClick GetImage ] [ text "Click me!" ]
         ]
+
+
+noImage : Html Msg
+noImage =
+    div [] [ text "No cats here yet." ]
 
 
 renderImage : String -> Html Msg
 renderImage url =
-    img [ src url ] []
+    div []
+        [ img [ src url ] []
+        ]
