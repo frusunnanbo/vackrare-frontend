@@ -1,7 +1,7 @@
 module Styles exposing (..)
 
 import Css exposing (..)
-import Css.Elements exposing (body, button, img, div)
+import Css.Elements exposing (body, h1, button, img, div)
 import Css.Namespace exposing (namespace)
 
 
@@ -97,7 +97,8 @@ slide =
         , margin (px 10)
         , height (px slideHeight)
         , descendants
-            [ (.) AboutMe
+            [ h1 [ fontSize (em 2.8) ]
+            , (.) AboutMe
                 [ bottomOfSlide
                 , fontSize (px 20)
                 , fontWeight bold
