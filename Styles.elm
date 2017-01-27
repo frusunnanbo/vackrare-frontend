@@ -98,7 +98,7 @@ slide =
         , margin (px 10)
         , height (px slideHeight)
         , descendants
-            [ h1 [ fontSize (em 2.8) ]
+            [ h1 [ fontSize (em 3.0) ]
             , (.) AboutMe
                 [ bottomOfSlide
                 , fontSize (px 20)
