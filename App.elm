@@ -6,7 +6,7 @@ import Time exposing (Time, every, second)
 import Styles
 import Navigation
 import Timer
-import Slide exposing (createSlide, titleSlide, pictureSlide, codeSlide)
+import Slide exposing (createSlide, titleSlide, pictureSlide, codeSlide, takeAwaySlide)
 import Counter
 
 
@@ -43,7 +43,11 @@ slides slideModel =
     , pictureSlide "The Elm Architecture" [ "elm-architecture-2.jpg" ]
     , pictureSlide "The Elm Architecture" [ "elm-architecture-3.jpg" ]
     , pictureSlide "The Elm Architecture" [ "elm-architecture-4.jpg" ]
-    , createSlide "Bra att ha."
+    , pictureSlide "Exempel 1: Hello" [ "hello.png" ]
+    , pictureSlide "Exempel 2: Interaktion" [ "counter.png" ]
+    , pictureSlide "Exempel 3: Tid" [ "timer.png" ]
+    , pictureSlide "Exempel 4: Katter" [ "cat.png" ]
+    , takeAwaySlide
     ]
 
 

@@ -1,4 +1,4 @@
-module Slide exposing (Slide, titleSlide, pictureSlide, createSlide, codeSlide)
+module Slide exposing (Slide, titleSlide, pictureSlide, createSlide, codeSlide, takeAwaySlide)
 
 import Html exposing (..)
 import Html.Attributes exposing (..)
@@ -6,6 +6,7 @@ import Html.CssHelpers as CssHelpers
 import Css exposing (asPairs, px)
 import Css.Elements exposing (body)
 import Css.Namespace exposing (namespace)
+import Regex exposing (replace, regex, HowMany(..))
 import Styles
 
 
@@ -32,6 +33,11 @@ createSlide heading =
 codeSlide : String -> (model -> Html msg) -> model -> Slide msg model
 codeSlide code view model =
     { render = renderCodeSlide code view }
+
+
+takeAwaySlide : Slide msg model
+takeAwaySlide =
+    { render = renderTakeAwaySlide }
 
 
 { id, class, classList } =
@@ -85,3 +91,28 @@ renderCodeSlide code view model =
         [ div [ class [ Styles.Code ] ] [ pre [] [ text code ] ]
         , div [ class [ Styles.Compiled ] ] [ view model ]
         ]
+
+
+renderTakeAwaySlide : model -> Html msg
+renderTakeAwaySlide model =
+    div []
+        [ h1 [] [ text "Att ta med sig hem:" ]
+        , bigLink "http://elm-lang.org/try"
+        , bigLink "http://tekster.svt.se"
+        , bigLink "http://noredink.com"
+        , bigLink "http://github.com/frusunnanbo/vackrare-frontend"
+        ]
+
+
+bigLink : String -> Html msg
+bigLink link =
+    div [ class [ Styles.BigLink ] ]
+        [ a
+            [ href link ]
+            [ text (stripHttp link) ]
+        ]
+
+
+stripHttp : String -> String
+stripHttp link =
+    replace All (regex "http://") (\_ -> "") link

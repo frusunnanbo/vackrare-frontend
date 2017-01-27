@@ -1,7 +1,7 @@
 module Styles exposing (..)
 
 import Css exposing (..)
-import Css.Elements exposing (body, h1, button, img, div)
+import Css.Elements exposing (body, h1, button, img, div, a)
 import Css.Namespace exposing (namespace)
 
 
@@ -26,6 +26,7 @@ type CssClasses
     | CodeSlide
     | Code
     | Compiled
+    | BigLink
 
 
 white =
@@ -119,6 +120,7 @@ slide =
             , (.) SlideHeading
                 [ textAlign left ]
             , (.) CodeSlide codeSlide
+            , (.) BigLink bigLink
             ]
         ]
 
@@ -234,6 +236,19 @@ navigationButton =
         , padding (px 10)
         , borderRadius (px 6)
         ]
+
+
+bigLink =
+    [ margin (px 20)
+    , descendants
+        [ a
+            [ color foregroundColor
+            , textDecoration none
+            , fontWeight bold
+            , fontSize (px 42)
+            ]
+        ]
+    ]
 
 
 topBox color =
