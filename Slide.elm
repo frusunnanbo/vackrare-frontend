@@ -1,4 +1,4 @@
-module Slide exposing (Slide, titleSlide, pictureSlide, createSlide, codeSlide, takeAwaySlide)
+module Slide exposing (Slide, titleSlide, pictureSlide, singlePictureSlide, codeSlide, takeAwaySlide)
 
 import Html exposing (..)
 import Html.Attributes exposing (..)
@@ -20,14 +20,14 @@ titleSlide =
     { render = renderTitleSlide }
 
 
-pictureSlide : String -> List String -> Slide msg model
+pictureSlide : String -> List ( String, Float ) -> Slide msg model
 pictureSlide heading pictures =
     { render = renderPictureSlide heading pictures }
 
 
-createSlide : String -> Slide msg model
-createSlide heading =
-    { render = renderHeadingSlide heading }
+singlePictureSlide : String -> String -> Slide msg model
+singlePictureSlide heading picture =
+    { render = renderPictureSlide heading [ ( picture, 1 ) ] }
 
 
 codeSlide : String -> (model -> Html msg) -> model -> Slide msg model
@@ -42,30 +42,29 @@ takeAwaySlide =
 
 { id, class, classList } =
     CssHelpers.withNamespace ""
-renderHeadingSlide : String -> model -> Html msg
-renderHeadingSlide heading model =
-    renderPictureSlide heading [ "your-dream-appearance.png" ] model
-
-
-renderPictureSlide : String -> List String -> model -> Html msg
+renderPictureSlide : String -> List ( String, Float ) -> model -> Html msg
 renderPictureSlide heading pictures model =
     div []
-        (h1 [] [ text heading ] :: List.map (renderPicture (maxPictureHeight pictures)) pictures)
+        (h1 [] [ text heading ] :: List.map renderPicture pictures)
 
 
-maxPictureHeight : List picture -> Float
-maxPictureHeight pictures =
-    (Styles.slideHeight - 100) / toFloat (List.length pictures)
-
-
-renderPicture : Float -> String -> Html msg
-renderPicture maxHeight picture =
-    div [ class [ Styles.MainPicture ], asPairs [ Css.maxHeight (px maxHeight) ] |> style ]
-        [ img
-            [ src picture
+renderPicture : ( String, Float ) -> Html msg
+renderPicture picturePair =
+    let
+        ( picture, percent ) =
+            picturePair
+    in
+        div [ class [ Styles.MainPicture ], asPairs [ Css.maxHeight (px (pictureHeight percent)) ] |> style ]
+            [ img
+                [ src picture
+                ]
+                []
             ]
-            []
-        ]
+
+
+pictureHeight : Float -> Float
+pictureHeight percent =
+    (Styles.slideHeight - 100) * percent
 
 
 renderTitleSlide : model -> Html msg

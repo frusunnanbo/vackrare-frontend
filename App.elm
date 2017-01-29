@@ -6,7 +6,7 @@ import Time exposing (Time, every, second)
 import Styles
 import Navigation
 import Timer
-import Slide exposing (createSlide, titleSlide, pictureSlide, codeSlide, takeAwaySlide)
+import Slide exposing (titleSlide, pictureSlide, singlePictureSlide, codeSlide, takeAwaySlide)
 import Counter
 
 
@@ -35,18 +35,18 @@ type alias Model =
 
 
 slides slideModel =
-    [ pictureSlide "För hundra år sedan" [ "piolinsidan.png", "beginning_of_time.jpg" ]
-    , pictureSlide "Under mellantiden" [ "mean_time.jpg" ]
-    , pictureSlide "Nuförtiden" [ "elm_discovery.jpg" ]
-    , pictureSlide "The Elm Architecture" [ "your-dream-appearance.png" ]
-    , pictureSlide "The Elm Architecture" [ "elm-architecture-1.jpg" ]
-    , pictureSlide "The Elm Architecture" [ "elm-architecture-2.jpg" ]
-    , pictureSlide "The Elm Architecture" [ "elm-architecture-3.jpg" ]
-    , pictureSlide "The Elm Architecture" [ "elm-architecture-4.jpg" ]
-    , pictureSlide "Exempel 1: Hello" [ "hello.png" ]
-    , pictureSlide "Exempel 2: Interaktion" [ "counter.png" ]
-    , pictureSlide "Exempel 3: Tid" [ "timer.png" ]
-    , pictureSlide "Exempel 4: Katter" [ "cat.png" ]
+    [ pictureSlide "För hundra år sedan" [ ( "piolinsidan.png", 0.8 ), ( "beginning_of_time.jpg", 0.2 ) ]
+    , pictureSlide "Under mellantiden" [ ( "tm-3000.png", 0.8 ), ( "mean_time.jpg", 0.2 ) ]
+    , pictureSlide "Nuförtiden" [ ( "now.png", 0.8 ), ( "elm_discovery.jpg", 0.2 ) ]
+    , singlePictureSlide "The Elm Architecture" "your-dream-appearance.png"
+    , singlePictureSlide "The Elm Architecture" "elm-architecture-1.jpg"
+    , singlePictureSlide "The Elm Architecture" "elm-architecture-2.jpg"
+    , singlePictureSlide "The Elm Architecture" "elm-architecture-3.jpg"
+    , singlePictureSlide "The Elm Architecture" "elm-architecture-4.jpg"
+    , singlePictureSlide "Exempel 1: Hello" "hello.png"
+    , singlePictureSlide "Exempel 2: Interaktion" "counter.png"
+    , singlePictureSlide "Exempel 3: Tid" "timer.png"
+    , singlePictureSlide "Exempel 4: Katter" "cat.png"
     , takeAwaySlide
     ]
 
