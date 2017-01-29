@@ -77,6 +77,7 @@ css =
     stylesheet
         [ body
             [ margin (px 0)
+            , padding (px 20)
             , fontFamilies [ "Courier New", "Mono" ]
             , fontSize (pt 14)
             , color foregroundColor
