@@ -100,6 +100,7 @@ renderTakeAwaySlide model =
         , bigLink "http://tekster.svt.se"
         , bigLink "http://noredink.com"
         , bigLink "http://github.com/frusunnanbo/vackrare-frontend"
+        , bigLink "http://studentkonferens.omegapoint.se"
         ]
 
 
@@ -107,7 +108,7 @@ bigLink : String -> Html msg
 bigLink link =
     div [ class [ Styles.BigLink ] ]
         [ a
-            [ href link ]
+            [ href link, target "_blank" ]
             [ text (stripHttp link) ]
         ]
 
