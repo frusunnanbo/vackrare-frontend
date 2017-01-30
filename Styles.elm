@@ -84,7 +84,8 @@ css =
             , backgroundColor baseColor
             ]
         , slide
-        , elapsed
+        , timer
+        , total
         , navigation
         , navigationButton
         , title
@@ -155,30 +156,31 @@ codeSlide =
     ]
 
 
-elapsed =
+timer =
     (#) Timer
         [ topBox accentColor
         , position absolute
         , left (px 20)
         , bottom (px 20)
+        ]
+
+
+total =
+    (#) Total
+        [ width (px timerWidth)
+        , height (px timerHeight)
+        , backgroundColor baseColor
+        , border3 (px 1) solid (darker accentColor 0.2)
+        , borderRadius (px 4)
         , descendants
-            [ (#) Total
-                [ width (px timerWidth)
+            [ (#) Elapsed
+                [ backgroundColor accentColor
                 , height (px timerHeight)
-                , backgroundColor baseColor
-                , border3 (px 1) solid (darker accentColor 0.2)
+                , width (px (timerWidth - 100))
+                , display inlineBlock
                 , borderRadius (px 4)
-                , descendants
-                    [ (#) Elapsed
-                        [ backgroundColor accentColor
-                        , height (px timerHeight)
-                        , width (px (timerWidth - 100))
-                        , display inlineBlock
-                        , borderRadius (px 4)
-                        ]
-                    , everything [ position absolute ]
-                    ]
                 ]
+            , everything [ position absolute ]
             ]
         ]
 
