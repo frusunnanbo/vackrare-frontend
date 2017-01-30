@@ -1,4 +1,4 @@
-module Counter exposing (code, Msg, Model, update, view)
+module Counter exposing (Msg, Model, update, view)
 
 import Html exposing (..)
 import Html.Events exposing (onClick)
