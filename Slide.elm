@@ -1,4 +1,4 @@
-module Slide exposing (Slide, titleSlide, pictureSlide, singlePictureSlide, codeSlide, takeAwaySlide)
+module Slide exposing (Slide, titleSlide, pictureSlide, singlePictureSlide, linkPictureSlide, takeAwaySlide)
 
 import Html exposing (..)
 import Html.Attributes exposing (..)
@@ -30,6 +30,11 @@ singlePictureSlide heading picture =
     { render = renderPictureSlide heading [ ( picture, 1 ) ] }
 
 
+linkPictureSlide : String -> String -> String -> Slide msg model
+linkPictureSlide heading picture link =
+    { render = renderLinkPictureSlide heading picture link }
+
+
 codeSlide : String -> (model -> Html msg) -> model -> Slide msg model
 codeSlide code view model =
     { render = renderCodeSlide code view }
@@ -46,6 +51,19 @@ renderPictureSlide : String -> List ( String, Float ) -> model -> Html msg
 renderPictureSlide heading pictures model =
     div []
         (h1 [] [ text heading ] :: List.map renderPicture pictures)
+
+
+renderLinkPictureSlide : String -> String -> String -> model -> Html msg
+renderLinkPictureSlide heading picture link model =
+    div []
+        [ h1 [] [ text heading ]
+        , renderLink link (renderPicture ( picture, 1 ))
+        ]
+
+
+renderLink : String -> Html msg -> Html msg
+renderLink link inner =
+    a [ href link, target "_blank" ] [ inner ]
 
 
 renderPicture : ( String, Float ) -> Html msg
