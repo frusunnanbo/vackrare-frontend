@@ -93,6 +93,7 @@ css =
         , title
         , logo
         , displayNumber
+        , bigLink
         , promoCode
         , centered
         ]
@@ -126,7 +127,6 @@ slide =
             , (.) SlideHeading
                 [ textAlign left ]
             , (.) CodeSlide codeSlide
-            , (.) BigLink bigLink
             ]
         ]
 
@@ -246,22 +246,22 @@ navigationButton =
 
 
 bigLink =
-    [ margin (px 20)
-    , descendants
-        [ a
-            [ color foregroundColor
-            , textDecoration none
-            , fontWeight bold
-            , fontSize (px 42)
+    (.) BigLink
+        [ margin (px 20)
+        , descendants
+            [ a
+                [ color foregroundColor
+                , textDecoration none
+                , fontWeight bold
+                , fontSize (px 42)
+                ]
             ]
         ]
-    ]
 
 
 promoCode =
     (.) PromoCode
         [ fontSize (px 128)
-        , kindaCentered
         ]
 
 

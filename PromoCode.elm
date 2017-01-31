@@ -69,19 +69,24 @@ subscriptions model =
 -- VIEW
 
 
+{ id, class, classList } =
+    CssHelpers.withNamespace ""
 view model =
-    div []
-        [ model.code
+    div [ class [ Styles.KindaCentered ] ]
+        [ div [ class [ Styles.BigLink ] ]
+            [ a
+                [ href "http://studentkonferens.omegapoint.se" ]
+                [ text "studentkonferens.omegapoint.se" ]
+            ]
+        , model.code
             |> Maybe.map renderCode
             |> Maybe.withDefault noCode
         ]
 
 
-{ id, class, classList } =
-    CssHelpers.withNamespace ""
 noCode : Html Msg
 noCode =
-    div [ class [ Styles.KindaCentered ] ]
+    div []
         [ button
             [ onClick GetPromoCode ]
             [ text "Gimme that code!" ]
