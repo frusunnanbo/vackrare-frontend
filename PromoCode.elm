@@ -3,7 +3,9 @@ module PromoCode exposing (Model, Msg, init, update, view, subscriptions)
 import Html exposing (..)
 import Html.Attributes exposing (..)
 import Html.Events exposing (..)
+import Html.CssHelpers as CssHelpers
 import Http
+import Styles
 
 
 main =
@@ -69,20 +71,24 @@ subscriptions model =
 
 view model =
     div []
-        [ button [ onClick GetPromoCode ] [ text "Gimme that code!" ]
-        , (model.code
+        [ model.code
             |> Maybe.map renderCode
             |> Maybe.withDefault noCode
-          )
         ]
 
 
+{ id, class, classList } =
+    CssHelpers.withNamespace ""
 noCode : Html Msg
 noCode =
-    div [] [ text "" ]
+    div [ class [ Styles.KindaCentered ] ]
+        [ button
+            [ onClick GetPromoCode ]
+            [ text "Gimme that code!" ]
+        ]
 
 
 renderCode : String -> Html Msg
 renderCode code =
-    div []
+    div [ class [ Styles.PromoCode ] ]
         [ text code ]

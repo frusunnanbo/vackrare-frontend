@@ -27,6 +27,8 @@ type CssClasses
     | Code
     | Compiled
     | BigLink
+    | PromoCode
+    | KindaCentered
 
 
 white =
@@ -91,6 +93,8 @@ css =
         , title
         , logo
         , displayNumber
+        , promoCode
+        , centered
         ]
 
 
@@ -252,6 +256,24 @@ bigLink =
             ]
         ]
     ]
+
+
+promoCode =
+    (.) PromoCode
+        [ fontSize (px 128)
+        , kindaCentered
+        ]
+
+
+centered =
+    (.) KindaCentered [ kindaCentered ]
+
+
+kindaCentered =
+    mixin
+        [ textAlign center
+        , marginTop (px 200)
+        ]
 
 
 topBox color =
