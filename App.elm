@@ -47,6 +47,7 @@ slides slideModel =
     , linkPictureSlide "Exempel 2: Interaktion" "counter.png" "counter.html"
     , linkPictureSlide "Exempel 3: Tid" "timer.png" "simpletimer.html"
     , linkPictureSlide "Exempel 4: Katter" "cat.png" "randomgif.html"
+    , singlePictureSlide "More Elm Architecture" "elm-architecture-5.jpg"
     , takeAwaySlide
     ]
 

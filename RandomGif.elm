@@ -9,7 +9,11 @@ import Json.Decode as Json
 
 main =
     program
-        { init = init, update = update, subscriptions = subscriptions, view = view }
+        { init = init
+        , update = update
+        , subscriptions = subscriptions
+        , view = view
+        }
 
 
 

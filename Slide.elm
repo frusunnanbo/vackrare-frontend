@@ -115,8 +115,8 @@ renderTakeAwaySlide model =
     div []
         [ h1 [] [ text "Att ta med sig hem:" ]
         , bigLink "http://elm-lang.org/try"
-        , bigLink "http://tekster.svt.se"
         , bigLink "http://noredink.com"
+        , bigLink "http://tekster.svt.se"
         , bigLink "http://github.com/frusunnanbo/vackrare-frontend"
         , bigLink "http://studentkonferens.omegapoint.se"
         , bigLinkWithText "/promocode.html" "  -->"
