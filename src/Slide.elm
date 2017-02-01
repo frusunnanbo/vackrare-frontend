@@ -11,8 +11,7 @@ import Styles
 
 
 type alias Slide msg model =
-    { render : model -> Html msg
-    }
+    { render : model -> Html msg }
 
 
 titleSlide : Slide msg model
@@ -66,16 +65,16 @@ renderTDiagramSlide model =
                 [ class [ Styles.TDiagram ] ]
                 [ imageBox Styles.TInput "elm-logo.png"
                 , imageBox Styles.TOutput "js-logo.png"
-                , img [ src "haskell-logo.png" ] []
+                , image "haskell-logo.png"
                 ]
             ]
         ]
 
 
 imageBox : Styles.CssClasses -> String -> Html msg
-imageBox cssClass image =
+imageBox cssClass filename =
     div [ class [ cssClass ] ]
-        [ img [ src image ] [] ]
+        [ image filename ]
 
 
 renderLinkPictureSlide : String -> String -> String -> model -> Html msg
@@ -104,11 +103,7 @@ renderPicture picturePair =
             picturePair
     in
         div [ class [ Styles.MainPicture ], asPairs [ Css.maxHeight (px (pictureHeight percent)) ] |> style ]
-            [ img
-                [ src picture
-                ]
-                []
-            ]
+            [ image picture ]
 
 
 pictureHeight : Float -> Float
@@ -120,7 +115,7 @@ renderTitleSlide : model -> Html msg
 renderTitleSlide model =
     div []
         [ div [ class [ Styles.Title ] ]
-            [ img [ src "elm-logo.png" ] []
+            [ image "elm-logo.png"
             , div [] [ text "Vackrare frontend med Elm" ]
             ]
         , div
@@ -129,7 +124,7 @@ renderTitleSlide model =
             , p [] [ text "pia.fak.sunnanbo@omegapoint.se" ]
             , p [] [ text "@frusunnanbo" ]
             ]
-        , div [ class [ Styles.Logo ] ] [ img [ src "logo_white.png" ] [] ]
+        , div [ class [ Styles.Logo ] ] [ image "logo_white.png" ]
         ]
 
 
@@ -173,3 +168,8 @@ bigLinkWithText link linkText =
 stripHttp : String -> String
 stripHttp link =
     replace All (regex "http://") (\_ -> "") link
+
+
+image : String -> Html msg
+image name =
+    img [ src ("/images/" ++ name) ] []
