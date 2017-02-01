@@ -4,7 +4,7 @@
     "repository": "https://github.com/frusunnanbo/vackrare-frontend.git",
     "license": "GPLv3",
     "source-directories": [
-        "."
+        "src"
     ],
     "exposed-modules": [],
     "dependencies": {
