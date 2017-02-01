@@ -10,8 +10,8 @@ import Styles
 
 main =
     program
-        { init = ( init, Cmd.none )
-        , update = \msg model -> ( update msg model, Cmd.none )
+        { init = init
+        , update = update
         , subscriptions = always subscriptions
         , view = view
         }
@@ -25,9 +25,9 @@ type alias Model =
     { elapsed : Int }
 
 
-init : Model
+init : ( Model, Cmd Msg )
 init =
-    { elapsed = 0 }
+    ( { elapsed = 13 }, Cmd.none )
 
 
 
@@ -38,11 +38,11 @@ type Msg
     = Tick Time
 
 
-update : Msg -> Model -> Model
+update : Msg -> Model -> ( Model, Cmd Msg )
 update msg model =
     case msg of
-        Tick time ->
-            { model | elapsed = model.elapsed + 1 }
+        Tick _ ->
+            ( { model | elapsed = model.elapsed + 1 }, Cmd.none )
 
 
 
