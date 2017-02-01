@@ -29,6 +29,10 @@ type CssClasses
     | BigLink
     | PromoCode
     | KindaCentered
+    | TDiagram
+    | TInput
+    | TOutput
+    | TBottom
 
 
 white =
@@ -96,6 +100,7 @@ css =
         , bigLink
         , promoCode
         , centered
+        , tDiagram
         ]
 
 
@@ -230,6 +235,27 @@ displayNumber =
         [ display inlineBlock
         , padding (px 5)
         , fontSize (px 24)
+        ]
+
+
+tDiagram =
+    (.) TDiagram
+        [ display inlineBlock
+        , maxWidth (px 310)
+        , descendants
+            [ (.) TInput
+                [ display inlineBlock
+                , paddingRight (px 60)
+                ]
+            , (.) TOutput [ display inlineBlock ]
+            , img
+                [ maxHeight (px 100)
+                ]
+            , everything
+                [ backgroundColor white
+                , padding (px 6)
+                ]
+            ]
         ]
 
 

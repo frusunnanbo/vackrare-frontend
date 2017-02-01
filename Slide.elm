@@ -1,4 +1,4 @@
-module Slide exposing (Slide, titleSlide, pictureSlide, singlePictureSlide, linkPictureSlide, takeAwaySlide)
+module Slide exposing (Slide, titleSlide, tDiagramSlide, pictureSlide, singlePictureSlide, linkPictureSlide, takeAwaySlide)
 
 import Html exposing (..)
 import Html.Attributes exposing (..)
@@ -18,6 +18,11 @@ type alias Slide msg model =
 titleSlide : Slide msg model
 titleSlide =
     { render = renderTitleSlide }
+
+
+tDiagramSlide : Slide msg model
+tDiagramSlide =
+    { render = renderTDiagramSlide }
 
 
 pictureSlide : String -> List ( String, Float ) -> Slide msg model
@@ -53,12 +58,38 @@ renderPictureSlide heading pictures model =
         (h1 [] [ text heading ] :: List.map renderPicture pictures)
 
 
+renderTDiagramSlide : model -> Html msg
+renderTDiagramSlide model =
+    slideWithHeading "Vad är Elm?"
+        [ div [ class [ Styles.KindaCentered ] ]
+            [ div
+                [ class [ Styles.TDiagram ] ]
+                [ imageBox Styles.TInput "elm-logo.png"
+                , imageBox Styles.TOutput "js-logo.png"
+                , img [ src "haskell-logo.png" ] []
+                ]
+            ]
+        ]
+
+
+imageBox : Styles.CssClasses -> String -> Html msg
+imageBox cssClass image =
+    div [ class [ cssClass ] ]
+        [ img [ src image ] [] ]
+
+
 renderLinkPictureSlide : String -> String -> String -> model -> Html msg
 renderLinkPictureSlide heading picture link model =
     div []
         [ h1 [] [ text heading ]
         , renderLink link (renderPicture ( picture, 1 ))
         ]
+
+
+slideWithHeading : String -> List (Html msg) -> Html msg
+slideWithHeading heading slideContent =
+    div []
+        (h1 [] [ text heading ] :: slideContent)
 
 
 renderLink : String -> Html msg -> Html msg

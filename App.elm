@@ -6,7 +6,7 @@ import Time exposing (Time, every, second)
 import Styles
 import Navigation
 import Timer
-import Slide exposing (titleSlide, pictureSlide, singlePictureSlide, linkPictureSlide, takeAwaySlide)
+import Slide exposing (titleSlide, tDiagramSlide, pictureSlide, singlePictureSlide, linkPictureSlide, takeAwaySlide)
 import Counter
 
 
@@ -35,7 +35,8 @@ type alias Model =
 
 
 slides slideModel =
-    [ pictureSlide "För hundra år sedan" [ ( "piolinsidan.png", 0.8 ), ( "beginning_of_time.jpg", 0.2 ) ]
+    [ tDiagramSlide
+    , pictureSlide "För hundra år sedan" [ ( "piolinsidan.png", 0.8 ), ( "beginning_of_time.jpg", 0.2 ) ]
     , pictureSlide "Under mellantiden" [ ( "tm-3000.png", 0.8 ), ( "mean_time.jpg", 0.2 ) ]
     , pictureSlide "Nuförtiden" [ ( "now.png", 0.8 ), ( "elm_discovery.jpg", 0.2 ) ]
     , singlePictureSlide "The Elm Architecture" "your-dream-appearance.png"
