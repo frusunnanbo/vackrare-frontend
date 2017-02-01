@@ -23,9 +23,7 @@ type CssClasses
     | Logo
     | MainPicture
     | SlideHeading
-    | CodeSlide
-    | Code
-    | Compiled
+    | RandomCat
     | BigLink
     | PromoCode
     | KindaCentered
@@ -97,6 +95,7 @@ css =
         , title
         , logo
         , displayNumber
+        , randomCat
         , bigLink
         , promoCode
         , centered
@@ -131,38 +130,8 @@ slide =
                 ]
             , (.) SlideHeading
                 [ textAlign left ]
-            , (.) CodeSlide codeSlide
             ]
         ]
-
-
-codeSlide =
-    [ children
-        [ div
-            [ height (px (slideHeight - 100))
-            , display inlineBlock
-            , padding (px 10)
-            , border3 (px 4) solid elmLightBlue
-            , borderRadius (px 3)
-            , backgroundColor foregroundColor
-            , color baseColor
-            , verticalAlign top
-            ]
-        , (.) Code
-            [ overflow scroll
-            , width (pct 75)
-            ]
-        , (.) Compiled
-            [ display inlineBlock
-            , width (pct 15)
-            , marginLeft (pct 2)
-            , textAlign center
-            , descendants
-                [ everything [ marginTop (pct 20) ]
-                ]
-            ]
-        ]
-    ]
 
 
 timer =
@@ -235,6 +204,16 @@ displayNumber =
         [ display inlineBlock
         , padding (px 5)
         , fontSize (px 24)
+        ]
+
+
+randomCat =
+    (.) RandomCat
+        [ margin (px 20)
+        , descendants
+            [ everything
+                [ maxHeight (px 400) ]
+            ]
         ]
 
 

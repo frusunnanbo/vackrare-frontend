@@ -39,11 +39,6 @@ linkPictureSlide heading picture link =
     { render = renderLinkPictureSlide heading picture link }
 
 
-codeSlide : String -> (model -> Html msg) -> model -> Slide msg model
-codeSlide code view model =
-    { render = renderCodeSlide code view }
-
-
 takeAwaySlide : Slide msg model
 takeAwaySlide =
     { render = renderTakeAwaySlide }
@@ -125,14 +120,6 @@ renderTitleSlide model =
             , p [] [ text "@frusunnanbo" ]
             ]
         , div [ class [ Styles.Logo ] ] [ image "logo_white.png" ]
-        ]
-
-
-renderCodeSlide : String -> (model -> Html msg) -> model -> Html msg
-renderCodeSlide code view model =
-    div [ class [ Styles.CodeSlide ] ]
-        [ div [ class [ Styles.Code ] ] [ pre [] [ text code ] ]
-        , div [ class [ Styles.Compiled ] ] [ view model ]
         ]
 
 

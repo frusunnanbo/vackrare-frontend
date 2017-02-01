@@ -3,8 +3,10 @@ module RandomGif exposing (Model, Msg, init, update, view, subscriptions)
 import Html exposing (..)
 import Html.Attributes exposing (..)
 import Html.Events exposing (..)
+import Html.CssHelpers
 import Http
 import Json.Decode as Json
+import Styles
 
 
 main =
@@ -78,22 +80,25 @@ subscriptions model =
 
 
 view model =
-    div []
+    div [ class [ Styles.KindaCentered ] ]
         [ button [ onClick GetImage ] [ text "Another cat please!" ]
-        , (model.url
-            |> Maybe.map renderImage
-            |> Maybe.withDefault noImage
-          )
+        , div [ class [ Styles.RandomCat ] ]
+            (model.url
+                |> Maybe.map renderImage
+                |> Maybe.withDefault noImage
+            )
         ]
 
 
-noImage : Html Msg
+noImage : List (Html Msg)
 noImage =
-    div [] [ text "No cats here yet." ]
+    [ text "No cats here yet." ]
 
 
-renderImage : String -> Html Msg
+renderImage : String -> List (Html Msg)
 renderImage url =
-    div []
-        [ img [ src url ] []
-        ]
+    [ img [ src url ] [] ]
+
+
+{ id, class, classList } =
+    Html.CssHelpers.withNamespace ""
