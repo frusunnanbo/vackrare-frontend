@@ -27,7 +27,7 @@ type alias Model =
 
 init : ( Model, Cmd Msg )
 init =
-    ( { elapsed = 13 }, Cmd.none )
+    ( { elapsed = 0 }, Cmd.none )
 
 
 
