@@ -1,7 +1,7 @@
 module Styles exposing (..)
 
 import Css exposing (..)
-import Css.Elements exposing (body, h1, button, img, div, a)
+import Css.Elements exposing (html, body, h1, button, img, div, a)
 import Css.Namespace exposing (namespace)
 
 
@@ -76,11 +76,12 @@ timerWidth =
 
 css =
     stylesheet
-        [ body
+        [ mediaQuery "screen and ( min-width: 1600px )" [ html [ fontSize (pt 20) ] ]
+        , body
             [ margin (Css.rem 0)
             , padding (px 20)
             , fontFamilies [ "Courier New", "Mono" ]
-            , fontSize (pt 14)
+            , fontSize (pt 16)
             , color foregroundColor
             , backgroundColor baseColor
             ]
