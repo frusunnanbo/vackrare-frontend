@@ -18,7 +18,8 @@ css =
             [ fontSize (Css.rem 4)
             , fontWeight bold
             , marginTop (vh 23)
-            , marginLeft (vw 7)
+            , marginLeft (vw 6)
+            , marginRight (vw 6)
             , descendants
                 [ everything
                     [ verticalAlign middle

@@ -76,7 +76,8 @@ timerWidth =
 
 css =
     stylesheet
-        [ mediaQuery "screen and ( min-width: 1600px )" [ html [ fontSize (pt 20) ] ]
+        [ mediaQuery "screen and ( min-width: 1300px )" [ html [ fontSize (pt 17) ] ]
+        , mediaQuery "screen and ( min-width: 1600px )" [ html [ fontSize (pt 20) ] ]
         , body
             [ margin (Css.rem 0)
             , padding (px 20)
