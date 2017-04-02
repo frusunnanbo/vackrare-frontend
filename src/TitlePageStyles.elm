@@ -15,30 +15,33 @@ type CssClasses
 css =
     stylesheet
         [ (.) Title
-            [ fontSize (px 72)
+            [ fontSize (Css.rem 4)
             , fontWeight bold
-            , marginTop (px 150)
-            , textAlign center
+            , marginTop (vh 23)
+            , marginLeft (vw 7)
             , descendants
                 [ everything
                     [ verticalAlign middle
                     , textAlign left
                     ]
                 , div [ display inlineBlock, maxWidth (pct 75) ]
-                , img [ marginRight (px 30) ]
+                , img
+                    [ marginRight (Css.rem 2.0)
+                    , maxWidth (vw 17)
+                    ]
                 ]
             ]
         , (.) AboutMe
             [ bottomOfSlide
-            , fontSize (px 20)
+            , fontSize (Css.rem 1.3)
             , fontWeight bold
-            , lineHeight (px 4)
+            , lineHeight (Css.rem 0.2)
             ]
         , (.) Logo
             [ bottomOfSlide
-            , right (px 50)
-            , padding (px 20)
+            , right (vw 5)
+            , padding (Css.rem 1)
             , children
-                [ img [ height (px 50) ] ]
+                [ img [ height (vw 5) ] ]
             ]
         ]

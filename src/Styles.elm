@@ -262,7 +262,7 @@ box color =
 bottomOfSlide =
     mixin
         [ position absolute
-        , bottom (px 110)
+        , bottom (vh 4)
         ]
 
 
