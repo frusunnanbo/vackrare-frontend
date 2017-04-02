@@ -18,9 +18,6 @@ type CssIds
 
 type CssClasses
     = DisplayNumber
-    | Title
-    | AboutMe
-    | Logo
     | MainPicture
     | SlideHeading
     | RandomCat
@@ -80,7 +77,7 @@ timerWidth =
 css =
     stylesheet
         [ body
-            [ margin (px 0)
+            [ margin (Css.rem 0)
             , padding (px 20)
             , fontFamilies [ "Courier New", "Mono" ]
             , fontSize (pt 14)
@@ -92,8 +89,6 @@ css =
         , total
         , navigation
         , navigationButton
-        , title
-        , logo
         , displayNumber
         , randomCat
         , bigLink
@@ -109,13 +104,7 @@ slide =
         , margin (px 10)
         , height (px slideHeight)
         , descendants
-            [ h1 [ fontSize (em 3.0) ]
-            , (.) AboutMe
-                [ bottomOfSlide
-                , fontSize (px 20)
-                , fontWeight bold
-                , lineHeight (px 4)
-                ]
+            [ h1 [ fontSize (Css.rem 3.0) ]
             , (.) MainPicture
                 [ textAlign center
                 , height (px (slideHeight - 100))
@@ -169,33 +158,6 @@ navigation =
         , position absolute
         , right (px 20)
         , bottom (px 20)
-        ]
-
-
-title =
-    (.) Title
-        [ fontSize (px 72)
-        , fontWeight bold
-        , marginTop (px 150)
-        , textAlign center
-        , descendants
-            [ everything
-                [ verticalAlign middle
-                , textAlign left
-                ]
-            , div [ display inlineBlock, maxWidth (pct 75) ]
-            , img [ marginRight (px 30) ]
-            ]
-        ]
-
-
-logo =
-    (.) Logo
-        [ bottomOfSlide
-        , right (px 50)
-        , padding (px 20)
-        , children
-            [ img [ height (px 50) ] ]
         ]
 
 

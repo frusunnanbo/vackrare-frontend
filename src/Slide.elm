@@ -8,6 +8,7 @@ import Css.Elements exposing (body)
 import Css.Namespace exposing (namespace)
 import Regex exposing (replace, regex, HowMany(..))
 import Styles
+import TitlePageStyles
 
 
 type alias Slide msg model =
@@ -109,17 +110,17 @@ pictureHeight percent =
 renderTitleSlide : model -> Html msg
 renderTitleSlide model =
     div []
-        [ div [ class [ Styles.Title ] ]
+        [ div [ class [ TitlePageStyles.Title ] ]
             [ image "elm-logo.png"
             , div [] [ text "Vackrare frontend med Elm" ]
             ]
         , div
-            [ class [ Styles.AboutMe ] ]
+            [ class [ TitlePageStyles.AboutMe ] ]
             [ p [] [ text "Pia Fåk Sunnanbo" ]
             , p [] [ text "pia.fak.sunnanbo@omegapoint.se" ]
             , p [] [ text "@frusunnanbo" ]
             ]
-        , div [ class [ Styles.Logo ] ] [ image "logo_white.png" ]
+        , div [ class [ TitlePageStyles.Logo ] ] [ image "logo_white.png" ]
         ]
 
 
