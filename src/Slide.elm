@@ -92,11 +92,6 @@ renderPicture picturePair =
             [ image picture ]
 
 
-pictureHeight : Float -> Float
-pictureHeight percent =
-    (Styles.slideHeight - 100) * percent
-
-
 renderTakeAwaySlide : model -> Html msg
 renderTakeAwaySlide model =
     div []

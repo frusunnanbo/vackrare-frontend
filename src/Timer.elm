@@ -7,7 +7,7 @@ import Css exposing (asPairs, width, px)
 import Time exposing (Time, every, second)
 import Date exposing (fromTime, toTime)
 import Result exposing (withDefault)
-import Styles
+import TimerStyles exposing (CssClasses(..), CssIds(..), timerHeight, timerWidth)
 
 
 main =
@@ -108,13 +108,13 @@ width width =
 
 
 { id, class, classList } =
-    CssHelpers.withNamespace ""
+    CssHelpers.withNamespace "timer"
 view : Model -> Html Msg
 view model =
-    div [ id Styles.Timer ]
-        [ div [ id Styles.Total ]
-            [ div [ id Styles.Elapsed, width (elapsedWidth model) ] []
-            , span [ class [ Styles.DisplayNumber ] ]
+    div [ id Timer ]
+        [ div [ id Total ]
+            [ div [ id Elapsed, width (elapsedWidth model) ] []
+            , span [ class [ DisplayNumber ] ]
                 [ timeLeftText model |> text ]
             ]
         ]
@@ -177,7 +177,7 @@ timeUnitOf extractor time =
 
 elapsedWidth : Model -> Float
 elapsedWidth model =
-    Styles.timerWidth - ((timeLeftPercentage model) * Styles.timerWidth)
+    timerWidth - ((timeLeftPercentage model) * timerWidth)
 
 
 timeLeftPercentage : Model -> Float

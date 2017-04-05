@@ -70,18 +70,6 @@ textContentMargin =
     (Css.rem 3)
 
 
-slideHeight =
-    700
-
-
-timerHeight =
-    40
-
-
-timerWidth =
-    200
-
-
 css =
     stylesheet
         [ mediaQuery "screen and ( min-width: 1300px )" [ html [ fontSize (pt 17) ] ]
@@ -94,8 +82,6 @@ css =
             , backgroundColor baseColor
             ]
         , slide
-        , timer
-        , total
         , navigation
         , navigationButton
         , displayNumber
@@ -127,35 +113,6 @@ slide =
                 ]
             , (.) SlideHeading
                 [ textAlign left ]
-            ]
-        ]
-
-
-timer =
-    (#) Timer
-        [ topBox accentColor
-        , position absolute
-        , left (px 20)
-        , bottom (px 20)
-        ]
-
-
-total =
-    (#) Total
-        [ width (px timerWidth)
-        , height (px timerHeight)
-        , backgroundColor baseColor
-        , border3 (px 1) solid (darker accentColor 0.2)
-        , borderRadius (px 4)
-        , descendants
-            [ (#) Elapsed
-                [ backgroundColor accentColor
-                , height (px timerHeight)
-                , width (px (timerWidth - 100))
-                , display inlineBlock
-                , borderRadius (px 4)
-                ]
-            , everything [ position absolute ]
             ]
         ]
 

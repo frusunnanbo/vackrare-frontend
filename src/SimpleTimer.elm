@@ -2,12 +2,15 @@ module SimpleTimer exposing (Model, Msg, init, update, subscriptions, view)
 
 import Html exposing (..)
 import Html.Attributes exposing (style, height, width, id, class)
+import Html.CssHelpers as CssHelpers
 import Time exposing (Time, every, second)
 import Date exposing (fromTime, toTime)
 import Result exposing (withDefault)
-import Styles
+import TimerStyles exposing (CssIds(..), CssClasses(..))
 
 
+{ id, class, classList } =
+    CssHelpers.withNamespace "timer"
 main =
     program
         { init = init
@@ -60,9 +63,9 @@ subscriptions =
 
 view : Model -> Html Msg
 view model =
-    div [ id "Total" ]
-        [ div [ id "Elapsed", style [ ( "width", (model.elapsed |> toString) ++ "px" ) ] ] []
-        , span [ class "DisplayNumber" ]
+    div [ id Total ]
+        [ div [ id Elapsed, style [ ( "width", (model.elapsed |> toString) ++ "px" ) ] ] []
+        , span [ class [ DisplayNumber ] ]
             [ model.elapsed |> minuteOf |> toString |> String.pad 2 '0' |> text
             , ":" |> text
             , model.elapsed |> secondOf |> toString |> String.pad 2 '0' |> text
