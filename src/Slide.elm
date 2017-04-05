@@ -1,4 +1,4 @@
-module Slide exposing (Slide, titleSlide, tDiagramSlide, singlePictureSlide, linkPictureSlide, takeAwaySlide)
+module Slide exposing (Slide, tDiagramSlide, singlePictureSlide, linkPictureSlide, takeAwaySlide)
 
 import Html exposing (..)
 import Html.Attributes exposing (..)
@@ -13,11 +13,6 @@ import TitlePageStyles
 
 type alias Slide msg model =
     { render : model -> Html msg }
-
-
-titleSlide : Slide msg model
-titleSlide =
-    { render = renderTitleSlide }
 
 
 tDiagramSlide : Slide msg model
@@ -100,23 +95,6 @@ renderPicture picturePair =
 pictureHeight : Float -> Float
 pictureHeight percent =
     (Styles.slideHeight - 100) * percent
-
-
-renderTitleSlide : model -> Html msg
-renderTitleSlide model =
-    div []
-        [ div [ class [ TitlePageStyles.Title ] ]
-            [ image "elm-logo.png"
-            , div [] [ text "Vackrare frontend med Elm" ]
-            ]
-        , div
-            [ class [ TitlePageStyles.AboutMe ] ]
-            [ p [] [ text "Pia Fåk Sunnanbo" ]
-            , p [] [ text "pia.fak.sunnanbo@omegapoint.se" ]
-            , p [] [ text "@frusunnanbo" ]
-            ]
-        , div [ class [ TitlePageStyles.Logo ] ] [ image "logo_white.png" ]
-        ]
 
 
 renderTakeAwaySlide : model -> Html msg

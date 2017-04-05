@@ -13,7 +13,7 @@ type CssClasses
 
 
 css =
-    stylesheet
+    (stylesheet << namespace "titleSlide")
         [ (.) Title
             [ fontSize (Css.rem 4)
             , fontWeight bold
