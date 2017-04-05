@@ -22,7 +22,7 @@ type CssClasses
     | SlideHeading
     | RandomCat
     | BigLink
-    | PromoCode
+    | Dash
     | KindaCentered
     | TDiagram
     | TInput
@@ -66,6 +66,10 @@ baseMargin =
     (vh 6)
 
 
+textContentMargin =
+    (Css.rem 3)
+
+
 slideHeight =
     700
 
@@ -97,7 +101,6 @@ css =
         , displayNumber
         , randomCat
         , bigLink
-        , promoCode
         , centered
         , tDiagram
         ]
@@ -106,11 +109,10 @@ css =
 slide =
     (#) Slide
         [ margin baseMargin
-        , height (px slideHeight)
         , descendants
             [ h1
                 [ fontSize (Css.rem 3.2)
-                , marginLeft (Css.rem 2)
+                , marginLeft textContentMargin
                 , marginTop (Css.rem 3)
                 ]
             , (.) MainPicture
@@ -220,21 +222,19 @@ navigationButton =
 
 bigLink =
     (.) BigLink
-        [ margin (px 20)
+        [ marginLeft (Css.rem 4)
         , descendants
-            [ a
+            [ (.) Dash [ color accentColor ]
+            , a
                 [ color foregroundColor
                 , textDecoration none
-                , fontWeight bold
-                , fontSize (px 42)
+                ]
+            , everything
+                [ fontWeight bold
+                , fontSize (Css.rem 2.3)
+                , lineHeight (pct 150)
                 ]
             ]
-        ]
-
-
-promoCode =
-    (.) PromoCode
-        [ fontSize (px 128)
         ]
 
 

@@ -6,7 +6,7 @@ import Time exposing (Time, every, second)
 import Styles
 import Navigation
 import Timer
-import Slide exposing (titleSlide, tDiagramSlide, pictureSlide, singlePictureSlide, linkPictureSlide, takeAwaySlide)
+import Slide exposing (titleSlide, tDiagramSlide, singlePictureSlide, linkPictureSlide, takeAwaySlide)
 import Counter
 
 
@@ -36,7 +36,7 @@ type alias Model =
 
 slides slideModel =
     [ tDiagramSlide
-    , singlePictureSlide "Varför elm?" "undefined_is_not_a_function.png"
+    , singlePictureSlide "Varför Elm?" "undefined_is_not_a_function.png"
     , singlePictureSlide "The Elm Architecture" "your-dream-appearance.png"
     , singlePictureSlide "The Elm Architecture" "elm-architecture-1.jpg"
     , singlePictureSlide "The Elm Architecture" "elm-architecture-2.jpg"

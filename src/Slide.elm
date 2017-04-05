@@ -1,4 +1,4 @@
-module Slide exposing (Slide, titleSlide, tDiagramSlide, pictureSlide, singlePictureSlide, linkPictureSlide, takeAwaySlide)
+module Slide exposing (Slide, titleSlide, tDiagramSlide, singlePictureSlide, linkPictureSlide, takeAwaySlide)
 
 import Html exposing (..)
 import Html.Attributes exposing (..)
@@ -23,11 +23,6 @@ titleSlide =
 tDiagramSlide : Slide msg model
 tDiagramSlide =
     { render = renderTDiagramSlide }
-
-
-pictureSlide : String -> List ( String, Float ) -> Slide msg model
-pictureSlide heading pictures =
-    { render = renderPictureSlide heading pictures }
 
 
 singlePictureSlide : String -> String -> Slide msg model
@@ -128,13 +123,13 @@ renderTakeAwaySlide : model -> Html msg
 renderTakeAwaySlide model =
     div []
         [ h1 [] [ text "Att ta med sig hem:" ]
+        , bigLink "http://elmrepl.cuberoot.in"
         , bigLink "http://elm-lang.org/try"
+        , bigLink "https://ellie-app.com"
         , bigLink "http://noredink.com"
         , bigLink "http://tekster.svt.se"
         , bigLink "http://elm-lang.org/blog/blazing-fast-html-round-two"
         , bigLink "http://github.com/frusunnanbo/vackrare-frontend"
-        , bigLink "http://studentkonferens.omegapoint.se"
-        , bigLinkWithText "/promocode.html" "  -->"
         ]
 
 
@@ -147,7 +142,9 @@ bigLink link =
 bigLinkWithText : String -> String -> Html msg
 bigLinkWithText link linkText =
     div [ class [ Styles.BigLink ] ]
-        [ a
+        [ span [ class [ Styles.Dash ] ]
+            [ text "--> " ]
+        , a
             [ href link, target "_blank" ]
             [ text linkText ]
         ]
