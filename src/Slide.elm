@@ -98,7 +98,7 @@ renderPicture picturePair =
         ( picture, percent ) =
             picturePair
     in
-        div [ class [ Styles.MainPicture ], asPairs [ Css.maxHeight (px (pictureHeight percent)) ] |> style ]
+        div [ class [ Styles.MainPicture ] ]
             [ image picture ]
 
 

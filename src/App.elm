@@ -36,9 +36,7 @@ type alias Model =
 
 slides slideModel =
     [ tDiagramSlide
-    , pictureSlide "För hundra år sedan" [ ( "piolinsidan.png", 0.75 ), ( "beginning_of_time.jpg", 0.25 ) ]
-    , pictureSlide "Under mellantiden" [ ( "tm-3000.png", 0.75 ), ( "mean_time.jpg", 0.25 ) ]
-    , pictureSlide "Nuförtiden" [ ( "now.png", 0.75 ), ( "elm_discovery.jpg", 0.25 ) ]
+    , singlePictureSlide "Varför elm?" "undefined_is_not_a_function.png"
     , singlePictureSlide "The Elm Architecture" "your-dream-appearance.png"
     , singlePictureSlide "The Elm Architecture" "elm-architecture-1.jpg"
     , singlePictureSlide "The Elm Architecture" "elm-architecture-2.jpg"

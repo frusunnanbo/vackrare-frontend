@@ -3,7 +3,7 @@ module TitlePageStyles exposing (..)
 import Css exposing (..)
 import Css.Elements exposing (body, h1, button, img, div, a)
 import Css.Namespace exposing (namespace)
-import Styles exposing (bottomOfSlide)
+import Styles exposing (bottomOfSlide, baseMargin)
 
 
 type CssClasses
@@ -36,11 +36,11 @@ css =
             [ bottomOfSlide
             , fontSize (Css.rem 1.3)
             , fontWeight bold
-            , lineHeight (Css.rem 0.2)
+            , lineHeight (pct 20)
             ]
         , (.) Logo
             [ bottomOfSlide
-            , right (vw 5)
+            , right baseMargin
             , padding (Css.rem 1)
             , children
                 [ img [ height (vw 5) ] ]

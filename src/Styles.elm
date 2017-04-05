@@ -62,6 +62,10 @@ foregroundColor =
     white
 
 
+baseMargin =
+    (vh 6)
+
+
 slideHeight =
     700
 
@@ -79,8 +83,7 @@ css =
         [ mediaQuery "screen and ( min-width: 1300px )" [ html [ fontSize (pt 17) ] ]
         , mediaQuery "screen and ( min-width: 1600px )" [ html [ fontSize (pt 20) ] ]
         , body
-            [ margin (Css.rem 0)
-            , padding (px 20)
+            [ margin (px 0)
             , fontFamilies [ "Courier New", "Mono" ]
             , fontSize (pt 16)
             , color foregroundColor
@@ -102,19 +105,20 @@ css =
 
 slide =
     (#) Slide
-        [ paddingLeft (px 30)
-        , margin (px 10)
+        [ margin baseMargin
         , height (px slideHeight)
         , descendants
-            [ h1 [ fontSize (Css.rem 3.0) ]
+            [ h1
+                [ fontSize (Css.rem 3.2)
+                , marginLeft (Css.rem 2)
+                , marginTop (Css.rem 3)
+                ]
             , (.) MainPicture
                 [ textAlign center
-                , height (px (slideHeight - 100))
-                , verticalAlign middle
                 , descendants
                     [ img
-                        [ maxHeight (pct 90)
-                        , maxWidth (pct 90)
+                        [ maxHeight (vh 70)
+                        , maxWidth (vw 90)
                         , verticalAlign middle
                         ]
                     ]
@@ -264,7 +268,7 @@ box color =
 bottomOfSlide =
     mixin
         [ position absolute
-        , bottom (vh 4)
+        , bottom (vh 3)
         ]
 
 
