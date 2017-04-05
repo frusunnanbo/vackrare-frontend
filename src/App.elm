@@ -37,6 +37,7 @@ type alias Model =
 slides slideModel =
     [ tDiagramSlide
     , singlePictureSlide "Varför Elm?" "undefined_is_not_a_function.png"
+    , singlePictureSlide "Varför typer?" "types.jpg"
     , singlePictureSlide "The Elm Architecture" "your-dream-appearance.png"
     , singlePictureSlide "The Elm Architecture" "elm-architecture-1.jpg"
     , singlePictureSlide "The Elm Architecture" "elm-architecture-2.jpg"

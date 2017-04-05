@@ -130,6 +130,7 @@ renderTakeAwaySlide model =
         , bigLink "http://tekster.svt.se"
         , bigLink "http://elm-lang.org/blog/blazing-fast-html-round-two"
         , bigLink "http://github.com/frusunnanbo/vackrare-frontend"
+        , bigLink "https://medium.com/imbybio/caring-for-elms-with-elm-98711f5128f1"
         ]
 
 
