@@ -8,7 +8,7 @@ import Css.Elements exposing (body)
 import Css.Namespace exposing (namespace)
 import Regex exposing (replace, regex, HowMany(..))
 import TitlePageStyles
-import Slide exposing (Slide)
+import Slide exposing (Slide, image)
 
 
 titleSlide : Slide msg model
@@ -33,8 +33,3 @@ renderTitleSlide model =
             ]
         , div [ class [ TitlePageStyles.Logo ] ] [ image "logo_white.png" ]
         ]
-
-
-image : String -> Html msg
-image name =
-    img [ src ("/images/" ++ name) ] []

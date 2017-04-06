@@ -1,4 +1,4 @@
-module Slide exposing (Slide, tDiagramSlide, singlePictureSlide, linkPictureSlide, takeAwaySlide)
+module Slide exposing (Slide, image, slideWithHeading, singlePictureSlide, linkPictureSlide, takeAwaySlide)
 
 import Html exposing (..)
 import Html.Attributes exposing (..)
@@ -13,11 +13,6 @@ import TitlePageStyles
 
 type alias Slide msg model =
     { render : model -> Html msg }
-
-
-tDiagramSlide : Slide msg model
-tDiagramSlide =
-    { render = renderTDiagramSlide }
 
 
 singlePictureSlide : String -> String -> Slide msg model
@@ -41,26 +36,6 @@ renderPictureSlide : String -> List ( String, Float ) -> model -> Html msg
 renderPictureSlide heading pictures model =
     div []
         (h1 [] [ text heading ] :: List.map renderPicture pictures)
-
-
-renderTDiagramSlide : model -> Html msg
-renderTDiagramSlide model =
-    slideWithHeading "Vad är Elm?"
-        [ div [ class [ Styles.KindaCentered ] ]
-            [ div
-                [ class [ Styles.TDiagram ] ]
-                [ imageBox Styles.TInput "elm-logo.png"
-                , imageBox Styles.TOutput "js-logo.png"
-                , image "haskell-logo.png"
-                ]
-            ]
-        ]
-
-
-imageBox : Styles.CssClasses -> String -> Html msg
-imageBox cssClass filename =
-    div [ class [ cssClass ] ]
-        [ image filename ]
 
 
 renderLinkPictureSlide : String -> String -> String -> model -> Html msg

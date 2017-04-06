@@ -6,8 +6,9 @@ import Time exposing (Time, every, second)
 import Styles
 import Navigation
 import Timer
-import Slide exposing (tDiagramSlide, singlePictureSlide, linkPictureSlide, takeAwaySlide)
+import Slide exposing (singlePictureSlide, linkPictureSlide, takeAwaySlide)
 import TitlePage exposing (titleSlide)
+import TDiagramSlide exposing (tDiagramSlide)
 import Counter
 
 
