@@ -15,7 +15,7 @@ type alias Slide msg model =
 
 singlePictureSlide : String -> String -> Slide msg model
 singlePictureSlide heading picture =
-    { render = renderPictureSlide heading [ ( picture, 1 ) ] }
+    { render = renderPictureSlide heading picture }
 
 
 linkPictureSlide : String -> String -> String -> Slide msg model
@@ -25,17 +25,21 @@ linkPictureSlide heading picture link =
 
 { id, class, classList } =
     CssHelpers.withNamespace ""
-renderPictureSlide : String -> List ( String, Float ) -> model -> Html msg
-renderPictureSlide heading pictures model =
+renderPictureSlide : String -> String -> model -> Html msg
+renderPictureSlide heading picture model =
     div []
-        (h1 [] [ text heading ] :: List.map renderPicture pictures)
+        [ h1 []
+            [ text heading ]
+        , renderPicture picture
+        ]
 
 
 renderLinkPictureSlide : String -> String -> String -> model -> Html msg
 renderLinkPictureSlide heading picture link model =
     div []
-        [ h1 [] [ text heading ]
-        , renderLink link (renderPicture ( picture, 1 ))
+        [ h1 []
+            [ text heading ]
+        , renderLink link (renderPicture picture)
         ]
 
 
@@ -50,14 +54,10 @@ renderLink link inner =
     a [ href link, target "_blank" ] [ inner ]
 
 
-renderPicture : ( String, Float ) -> Html msg
-renderPicture picturePair =
-    let
-        ( picture, percent ) =
-            picturePair
-    in
-        div [ class [ Styles.MainPicture ] ]
-            [ image picture ]
+renderPicture : String -> Html msg
+renderPicture picture =
+    div [ class [ Styles.MainPicture ] ]
+        [ image picture ]
 
 
 image : String -> Html msg

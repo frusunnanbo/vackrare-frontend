@@ -105,8 +105,8 @@ slide =
         [ descendants
             [ h1
                 [ fontSize (Css.rem 3.2)
-                , marginLeft (Css.rem 1)
-                , marginTop (Css.rem 1)
+                , margin (Css.rem 1)
+                , marginBottom (vh 4)
                 ]
             , (.) MainPicture
                 [ textAlign center
