@@ -207,7 +207,7 @@ centered =
 kindaCentered =
     mixin
         [ textAlign center
-        , marginTop (px 200)
+        , marginTop (vh 14)
         ]
 
 
