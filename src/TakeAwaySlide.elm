@@ -51,4 +51,4 @@ bigLinkWithText link linkText =
 
 stripHttp : String -> String
 stripHttp link =
-    replace All (regex "http://") (\_ -> "") link
+    replace All (regex "http(s?)://") (\_ -> "") link

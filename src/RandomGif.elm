@@ -1,7 +1,8 @@
 module RandomGif exposing (Model, Msg, init, update, view, subscriptions)
 
-import Html exposing (..)
-import Html.Attributes exposing (..)
+import Maybe exposing (withDefault, map)
+import Html exposing (Html, program, div, button, img, text)
+import Html.Attributes exposing (src)
 import Html.Events exposing (..)
 import Html.CssHelpers
 import Http
@@ -39,6 +40,7 @@ type Msg
     | NewImageUrl (Result Http.Error String)
 
 
+update : Msg -> Model -> ( Model, Cmd Msg )
 update msg model =
     case msg of
         GetImage ->
@@ -84,8 +86,8 @@ view model =
         [ button [ onClick GetImage ] [ text "Another cat please!" ]
         , div [ class [ Styles.RandomCat ] ]
             (model.url
-                |> Maybe.map renderImage
-                |> Maybe.withDefault noImage
+                |> map renderImage
+                |> withDefault noImage
             )
         ]
 
