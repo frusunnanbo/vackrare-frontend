@@ -34,9 +34,9 @@ init : Model
 init =
     let
         duration =
-            minutes 2880
+            minutes 1500
     in
-        { targetTime = targetTime "2017-04-07T09:55+02:00"
+        { targetTime = targetTime "2017-04-07T10:40+02:00"
         , timeLeft = NotStarted
         , duration = duration
         }
