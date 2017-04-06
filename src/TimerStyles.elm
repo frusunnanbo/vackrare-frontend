@@ -17,7 +17,7 @@ type CssClasses
 
 
 timerWidth =
-    15
+    16
 
 
 timerHeight =
