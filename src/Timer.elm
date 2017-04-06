@@ -7,7 +7,7 @@ import Css exposing (asPairs, width, px)
 import Time exposing (Time, every, second)
 import Date exposing (fromTime, toTime)
 import Result exposing (withDefault)
-import TimerStyles exposing (CssClasses(..), CssIds(..), timerHeight, timerWidth)
+import TimerStyles exposing (CssClasses(..), CssIds(..), timerWidth)
 
 
 main =
@@ -34,9 +34,9 @@ init : Model
 init =
     let
         duration =
-            minutes 45
+            minutes 2880
     in
-        { targetTime = targetTime "2017-02-02T11:00+01:00"
+        { targetTime = targetTime "2017-04-07T09:55+02:00"
         , timeLeft = NotStarted
         , duration = duration
         }

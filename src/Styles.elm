@@ -72,18 +72,26 @@ textContentMargin =
 
 css =
     stylesheet
-        [ mediaQuery "screen and ( min-width: 1300px )" [ html [ fontSize (pt 17) ] ]
-        , mediaQuery "screen and ( min-width: 1600px )" [ html [ fontSize (pt 20) ] ]
+        [ mediaQuery "screen and ( min-width: 1300px )" [ html [ fontSize (pt 16) ] ]
+        , mediaQuery "screen and ( min-width: 1600px )" [ html [ fontSize (pt 18) ] ]
         , body
             [ margin (px 0)
+            , padding baseMargin
             , fontFamilies [ "Courier New", "Mono" ]
-            , fontSize (pt 16)
+            , fontSize (pt 14)
             , color foregroundColor
             , backgroundColor baseColor
             ]
+        , button
+            [ color foregroundColor
+            , border3 (px 1) solid (darker accentColor 0.2)
+            , backgroundColor accentColor
+            , fontSize (Css.rem 1.3)
+            , padding (vw 0.6)
+            , borderRadius (Css.rem 0.3)
+            ]
         , slide
         , navigation
-        , navigationButton
         , displayNumber
         , randomCat
         , bigLink
@@ -94,12 +102,11 @@ css =
 
 slide =
     (#) Slide
-        [ margin baseMargin
-        , descendants
+        [ descendants
             [ h1
                 [ fontSize (Css.rem 3.2)
-                , marginLeft textContentMargin
-                , marginTop (Css.rem 3)
+                , marginLeft (Css.rem 1)
+                , marginTop (Css.rem 1)
                 ]
             , (.) MainPicture
                 [ textAlign center
@@ -119,10 +126,21 @@ slide =
 
 navigation =
     (#) Navigation
-        [ topBox accentColor
-        , position absolute
-        , right (px 20)
-        , bottom (px 20)
+        [ position absolute
+        , fontSize (Css.rem 1.7)
+        , margin (vw 3)
+        , right (vw 0)
+        , bottom (vw 0)
+        , descendants
+            [ button
+                [ color foregroundColor
+                , border3 (px 1) solid (darker accentColor 0.2)
+                , backgroundColor baseColor
+                , fontSize (Css.rem 1.5)
+                , padding (vw 0.6)
+                , borderRadius (Css.rem 0.3)
+                ]
+            ]
         ]
 
 
@@ -130,7 +148,6 @@ displayNumber =
     (.) DisplayNumber
         [ display inlineBlock
         , padding (px 5)
-        , fontSize (px 24)
         ]
 
 
@@ -165,18 +182,6 @@ tDiagram =
         ]
 
 
-navigationButton =
-    button
-        [ padding (px 3)
-        , fontSize (px 20)
-        , color foregroundColor
-        , border3 (px 1) solid (darker accentColor 0.2)
-        , backgroundColor accentColor
-        , padding (px 10)
-        , borderRadius (px 6)
-        ]
-
-
 bigLink =
     (.) BigLink
         [ marginLeft (Css.rem 4)
@@ -188,7 +193,7 @@ bigLink =
                 ]
             , everything
                 [ fontWeight bold
-                , fontSize (Css.rem 2.3)
+                , fontSize (Css.rem 1.7)
                 , lineHeight (pct 150)
                 ]
             ]
