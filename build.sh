@@ -1,6 +1,6 @@
 #!/bin/bash
 
-elm-css src/Stylesheets.elm &&
+elm-css css-src/Stylesheets.elm &&
 elm-make src/App.elm --output build/app.js &&
 elm-make src/Hello.elm --output build/hello.js &&
 elm-make src/RandomGif.elm --output build/randomgif.js &&
