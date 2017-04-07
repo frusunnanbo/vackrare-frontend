@@ -15,7 +15,7 @@ main =
     program
         { init = init
         , update = update
-        , subscriptions = always subscriptions
+        , subscriptions = subscriptions
         , view = view
         }
 
@@ -25,12 +25,12 @@ main =
 
 
 type alias Model =
-    { elapsed : Int }
+    Int
 
 
 init : ( Model, Cmd Msg )
 init =
-    ( { elapsed = 0 }, Cmd.none )
+    ( 0, Cmd.none )
 
 
 
@@ -45,15 +45,15 @@ update : Msg -> Model -> ( Model, Cmd Msg )
 update msg model =
     case msg of
         Tick _ ->
-            ( { model | elapsed = model.elapsed + 1 }, Cmd.none )
+            ( model + 1, Cmd.none )
 
 
 
 -- SUBSCRIPTIONS
 
 
-subscriptions : Sub Msg
-subscriptions =
+subscriptions : Model -> Sub Msg
+subscriptions model =
     every second Tick
 
 
@@ -64,11 +64,11 @@ subscriptions =
 view : Model -> Html Msg
 view model =
     div [ id Total ]
-        [ div [ id Elapsed, style [ ( "width", (model.elapsed |> toString) ++ "px" ) ] ] []
+        [ div [ id Elapsed, style [ ( "width", (model |> toString) ++ "px" ) ] ] []
         , span [ class [ DisplayNumber ] ]
-            [ model.elapsed |> minuteOf |> toString |> String.pad 2 '0' |> text
+            [ model |> minuteOf |> toString |> String.pad 2 '0' |> text
             , ":" |> text
-            , model.elapsed |> secondOf |> toString |> String.pad 2 '0' |> text
+            , model |> secondOf |> toString |> String.pad 2 '0' |> text
             ]
         ]
 
