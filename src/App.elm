@@ -137,8 +137,8 @@ view : Model -> Html.Html Msg
 view model =
     Html.div []
         [ Html.map SlideComponentMsg (slide model model.slideModel)
-        , Html.map NavigationMsg (Navigation.view model.slides)
-        , Html.map TimerMsg (Timer.view model.timerModel)
+          --, Html.map NavigationMsg (Navigation.view model.slides)
+          --, Html.map TimerMsg (Timer.view model.timerModel)
         ]
 
 
