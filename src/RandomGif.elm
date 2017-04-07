@@ -54,14 +54,7 @@ update msg model =
 
 
 getRandomCat =
-    let
-        url =
-            "http://random.cat/meow"
-
-        request =
-            Http.get url decodeGifUrl
-    in
-        Http.send NewImageUrl request
+    Http.send NewImageUrl (Http.get "http://random.cat/meow" decodeGifUrl)
 
 
 decodeGifUrl : Json.Decoder String
