@@ -24,7 +24,7 @@ renderTakeAwaySlide model =
         , bigLink "http://elmrepl.cuberoot.in"
         , bigLink "http://elm-lang.org/try"
         , bigLink "https://ellie-app.com"
-        , bigLink "http://noredink.com"
+        , bigLink "http://tech.noredink.com/"
         , bigLink "http://tekster.svt.se"
         , bigLink "http://elm-lang.org/blog/blazing-fast-html-round-two"
         , bigLink "http://github.com/frusunnanbo/vackrare-frontend"
